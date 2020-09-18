@@ -1,0 +1,691 @@
+fileFormatVersion: 2
+guid: 3a4ac46f2ced7ae4db43922d8120cf74
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7780615226459577948
+    second: BaseSwordAttacks_0
+  - first:
+      213: 1155162790249058043
+    second: BaseSwordAttacks_1
+  - first:
+      213: 7762645153919684722
+    second: BaseSwordAttacks_2
+  - first:
+      213: -2000400480061878991
+    second: BaseSwordAttacks_3
+  - first:
+      213: 4710506736009497813
+    second: BaseSwordAttacks_4
+  - first:
+      213: -5794603800288869211
+    second: BaseSwordAttacks_5
+  - first:
+      213: -7587458019906812140
+    second: BaseSwordAttacks_6
+  - first:
+      213: 4532188962295186749
+    second: BaseSwordAttacks_7
+  - first:
+      213: -2327210744634898817
+    second: BaseSwordAttacks_8
+  - first:
+      213: 3472242991294031061
+    second: BaseSwordAttacks_9
+  - first:
+      213: -7438268754340987004
+    second: BaseSwordAttacks_10
+  - first:
+      213: -7127679426866718221
+    second: BaseSwordAttacks_11
+  - first:
+      213: -5358359518902953619
+    second: BaseSwordAttacks_12
+  - first:
+      213: 6015199408602317769
+    second: BaseSwordAttacks_13
+  - first:
+      213: 6547321585284197696
+    second: BaseSwordAttacks_14
+  - first:
+      213: -4953059659009710973
+    second: BaseSwordAttacks_15
+  - first:
+      213: -3186781768823635998
+    second: BaseSwordAttacks_16
+  - first:
+      213: -518947288962118842
+    second: BaseSwordAttacks_17
+  - first:
+      213: -6607619793167595757
+    second: BaseSwordAttacks_18
+  - first:
+      213: 6779912398910413142
+    second: BaseSwordAttacks_19
+  - first:
+      213: -278435075143398601
+    second: BaseSwordAttacks_20
+  - first:
+      213: 1514398318515195874
+    second: BaseSwordAttacks_21
+  - first:
+      213: -4663726484217048100
+    second: BaseSwordAttacks_22
+  - first:
+      213: -2658397038708793731
+    second: BaseSwordAttacks_23
+  - first:
+      213: -3651587603391818213
+    second: BaseSwordAttacks_24
+  - first:
+      213: 8317708719543689356
+    second: BaseSwordAttacks_25
+  - first:
+      213: 8764829830688328868
+    second: BaseSwordAttacks_26
+  - first:
+      213: 919055291323489646
+    second: BaseSwordAttacks_27
+  - first:
+      213: 7704345080996649992
+    second: BaseSwordAttacks_28
+  - first:
+      213: 3300503814962811714
+    second: BaseSwordAttacks_29
+  - first:
+      213: 2131777030380499111
+    second: BaseSwordAttacks_30
+  - first:
+      213: 7024374800049435798
+    second: BaseSwordAttacks_31
+  - first:
+      213: 1525208187299861590
+    second: BaseSwordAttacks_32
+  - first:
+      213: 5767251239427619608
+    second: BaseSwordAttacks_33
+  - first:
+      213: 5248149097859109608
+    second: BaseSwordAttacks_34
+  - first:
+      213: -2016598642073848677
+    second: BaseSwordAttacks_35
+  - first:
+      213: 5593341822718480024
+    second: BaseSwordAttacks_36
+  - first:
+      213: -1059036797576255993
+    second: BaseSwordAttacks_37
+  - first:
+      213: 6127094226888702796
+    second: BaseSwordAttacks_38
+  - first:
+      213: -219628199727313506
+    second: BaseSwordAttacks_39
+  - first:
+      213: -259321111718285791
+    second: BaseSwordAttacks_40
+  - first:
+      213: 96233168120603940
+    second: BaseSwordAttacks_41
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BaseSwordAttacks_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 638
+        width: 19
+        height: 85
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2a6881da779f5d418f0427ac5447d09
+      internalID: 7780615226459577948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_1
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 636
+        width: 134
+        height: 87
+      alignment: 9
+      pivot: {x: 0.33351016, y: 0.18377616}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc12ba5dd5f0fb348847ef87fd4c3450
+      internalID: 1155162790249058043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_2
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 627
+        width: 110
+        height: 96
+      alignment: 9
+      pivot: {x: 0.56143284, y: 0.106124245}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8993ac920308e841a7d8dd17b617332
+      internalID: 7762645153919684722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_3
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 704
+        width: 85
+        height: 19
+      alignment: 9
+      pivot: {x: 0.77208793, y: 0.5134181}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47315cea379fac146b326b158f6e3c84
+      internalID: -2000400480061878991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_4
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 636
+        width: 134
+        height: 87
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3720d02b0d82bba4786f421c0ceb6ede
+      internalID: 4710506736009497813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 529
+        width: 110
+        height: 96
+      alignment: 9
+      pivot: {x: 0.20877099, y: 0.07796732}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d834384c530e6074a88d1e780771f8a8
+      internalID: -5794603800288869211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_6
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 606
+        width: 85
+        height: 19
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f0f8e3a0e8cd84459d25edbd448e49b
+      internalID: -7587458019906812140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_7
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 540
+        width: 23
+        height: 85
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10bec4f7906ef144697b6a4f63d8b209
+      internalID: 4532188962295186749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_8
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 540
+        width: 32
+        height: 85
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 166a6b41d66f6ab43993f33882369ff1
+      internalID: -2327210744634898817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_9
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 505
+        width: 29
+        height: 120
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16ad4a3ca0cc1f84081860a51d07fd39
+      internalID: 3472242991294031061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 475
+        width: 7
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 231e71460a851614f98e55f3fcf6c891
+      internalID: -5358359518902953619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_14
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 418
+        width: 13
+        height: 85
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 978ebc15e722e3747a88fd89188eccec
+      internalID: 6547321585284197696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_16
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 449
+        width: 19
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ae221fd4ffbd1442a5ccd35eecfae9c
+      internalID: -3186781768823635998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_17
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 459
+        width: 7
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4663e35480fd6f743955cfce8d063b75
+      internalID: -518947288962118842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_18
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 487
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd358c4277cc3e146a6fbd6220cdd3f3
+      internalID: -6607619793167595757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 366
+        width: 13
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ca71cb5381fd9746b817b4642842de7
+      internalID: -278435075143398601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_24
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 367
+        width: 17
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 018f4b84369c3054d9c3569e310c1349
+      internalID: -3651587603391818213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_27
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 331
+        width: 19
+        height: 85
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05ae3c1b6217a93418ff21577eb20afb
+      internalID: 919055291323489646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_28
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 331
+        width: 19
+        height: 85
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1340a3d473ef9fb4b9f3002e0cda533c
+      internalID: 7704345080996649992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_29
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 208
+        width: 208
+        height: 208
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eec72553e7db94b43b31cd46a60a3303
+      internalID: 3300503814962811714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 206
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d38b3782a2b8fac4ebd72298397942de
+      internalID: -259321111718285791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BaseSwordAttacks_41
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 0
+        width: 206
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc116a8921d53fa48823cb693aeada83
+      internalID: 96233168120603940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 68be983324e439249812ca462f382cd3
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

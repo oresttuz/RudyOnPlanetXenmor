@@ -1,0 +1,2 @@
+D:\Ball Game\3DGame\AmeriteAdventure\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+D:\Ball Game\3DGame\AmeriteAdventure\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache

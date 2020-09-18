@@ -1,0 +1,535 @@
+fileFormatVersion: 2
+guid: ce2c1c941928d0e4ea1168afe368c836
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5074198101089234954
+    second: 3D Test Weapon_0
+  - first:
+      213: -4240355929053701549
+    second: 3D Test Weapon_1
+  - first:
+      213: -8301210011118696684
+    second: 3D Test Weapon_2
+  - first:
+      213: -6061924876214773326
+    second: 3D Test Weapon_3
+  - first:
+      213: 3388576208249117019
+    second: 3D Test Weapon_4
+  - first:
+      213: 1810211048275871034
+    second: 3D Test Weapon_5
+  - first:
+      213: 3245650193375790316
+    second: 3D Test Weapon_6
+  - first:
+      213: -6121963852658256793
+    second: 3D Test Weapon_7
+  - first:
+      213: 4359544147518789876
+    second: 3D Test Weapon_8
+  - first:
+      213: 277144339999721285
+    second: 3D Test Weapon_9
+  - first:
+      213: -766159384172771358
+    second: 3D Test Weapon_10
+  - first:
+      213: 3550748931959230724
+    second: 3D Test Weapon_11
+  - first:
+      213: -3332282441271131253
+    second: 3D Test Weapon_12
+  - first:
+      213: -2852545375092017502
+    second: 3D Test Weapon_13
+  - first:
+      213: -911456968978870635
+    second: 3D Test Weapon_14
+  - first:
+      213: 6144677397525891481
+    second: 3D Test Weapon_15
+  - first:
+      213: -7086337206550322264
+    second: 3D Test Weapon_16
+  - first:
+      213: 6240554744228283685
+    second: 3D Test Weapon_17
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 3D Test Weapon_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 322
+        width: 17
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89bd152db5ac2224ab95e1df8b28ebf0
+      internalID: 5074198101089234954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_1
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 324
+        width: 53
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b6e0e43caff90c4d9b67184a7537b4c
+      internalID: -4240355929053701549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_2
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 324
+        width: 53
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d3d3e9e6e0615440bb8d2f4f26f5a54
+      internalID: -8301210011118696684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_3
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 258
+        width: 17
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcce5889ab69e9148967862f7cc051bf
+      internalID: -6061924876214773326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_4
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 260
+        width: 53
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07e908a6b0683914f9a0153cb53b1fd9
+      internalID: 3388576208249117019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_5
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 260
+        width: 53
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f27e3cc3758dfa746b2b69ba53cb390f
+      internalID: 1810211048275871034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_6
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 194
+        width: 17
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfe6f4266abae8342b2968ff44f32001
+      internalID: 3245650193375790316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_7
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 196
+        width: 53
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54093b7e5996d144394462eedd5a0c31
+      internalID: -6121963852658256793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_8
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 196
+        width: 53
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 136b44f36051fee4994c1e5b959a17af
+      internalID: 4359544147518789876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_9
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 130
+        width: 25
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f9cd8b2c754d2545810198d01f03f76
+      internalID: 277144339999721285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_10
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 132
+        width: 54
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9ea1dc661887ae4195a4b903c86b42e
+      internalID: -766159384172771358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_11
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 132
+        width: 54
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4308cf73f59a284c8d08c7765b38ca0
+      internalID: 3550748931959230724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_12
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 66
+        width: 17
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f737a44278d6b24dae200c5dd506348
+      internalID: -3332282441271131253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_13
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 68
+        width: 53
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 214eacd89e5bda94b9c49a449f8a07bf
+      internalID: -2852545375092017502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_14
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 68
+        width: 53
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cffce86602e1f57499ad2526c0cde709
+      internalID: -911456968978870635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_15
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 2
+        width: 17
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fe89cf0e440ea047b32fdc903d81bed
+      internalID: 6144677397525891481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_16
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 4
+        width: 53
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68c5b8e816761364ab47338b03dd1ab9
+      internalID: -7086337206550322264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3D Test Weapon_17
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 4
+        width: 53
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4214ebec31af0224db61b4721a475e24
+      internalID: 6240554744228283685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: d9dcaccc149b37f42bca5e4336297a64
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
