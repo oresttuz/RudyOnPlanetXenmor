@@ -66,6 +66,28 @@ public class Room
         doors = new Door[4];
     }
 
+    public DoorList CreateSquareRoom(Vector3Int roomSize)
+    {
+        DoorList tileIndexes = new DoorList();
+        for (int x = boundary; x < RoomGrid.GetLength(0) - boundary; ++x)
+        {
+            for (int y = boundary; y < RoomGrid.GetLength(1) - boundary; ++y)
+            {
+                if (x == boundary || x == RoomGrid.GetLength(0) - boundary - 1 || y == boundary || y == RoomGrid.GetLength(1) - boundary - 1)
+                {
+                    RoomGrid[x, y] = TileType.wall;
+                    tileIndexes.wall.Add(new Vector3Int(x, y, 0));
+                }
+                else
+                {
+                    RoomGrid[x, y] = TileType.floor;
+                    tileIndexes.floor.Add(new Vector3Int(x, y, 0));
+                }
+            }
+        }
+        return tileIndexes;
+    }
+
     public List<Vector3Int> CreateFloors(Vector3Int roomSize)
     {
         List<Walker> floorWalkers = new List<Walker>();

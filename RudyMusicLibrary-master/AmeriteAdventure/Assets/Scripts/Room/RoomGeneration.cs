@@ -56,14 +56,14 @@ public class RoomGeneration : MonoBehaviour
         gridSize = new Vector3Int(totalRoomNum.x * roomSize.x, totalRoomNum.y * roomSize.y, 0);
     }
 
-    public void Create()
+    public void Create(bool playerIsInhere)
     {
         if(!created)
         {
             Pathing();
             CreateRooms();
             ConnectDoorWays();
-            PutPlayerInStartingRoom();
+            if (playerIsInhere) { PutPlayerInStartingRoom(); }
         }
         created = true;
     }
@@ -116,11 +116,20 @@ public class RoomGeneration : MonoBehaviour
         {
             GameObject RoomGrouping = Instantiate(pfRoomGroup, gridInstance.transform);
             RoomGrouping.name = "Room (" + v3i.x + ", " + v3i.y + ")";
-            List<Vector3Int> floorsToAdd = rooms[v3i.x, v3i.y].CreateFloors(roomSize);
-            List<Vector3Int> wallsToAdd = rooms[v3i.x, v3i.y].CreateWalls(1==1);
-            DoorList doorsAndMoreToAdd = rooms[v3i.x, v3i.y].CreateAllDoors();
-            foreach (Vector3Int f in doorsAndMoreToAdd.floor) { if (wallsToAdd.Contains(f)) { wallsToAdd.Remove(f); } }
-            foreach (Vector3Int d in doorsAndMoreToAdd.door) { if (wallsToAdd.Contains(d)) { wallsToAdd.Remove(d); } }
+            bool isRectRoom = true;
+            DoorList doorsAndMoreToAdd = new DoorList();
+            //Square vs Procedurally Generated Rooms
+            if (isRectRoom) { doorsAndMoreToAdd.AddDoorListRange(rooms[v3i.x, v3i.y].CreateSquareRoom(roomSize)); }
+            else
+            {
+                doorsAndMoreToAdd.floor.AddRange(rooms[v3i.x, v3i.y].CreateFloors(roomSize));
+                doorsAndMoreToAdd.wall.AddRange(rooms[v3i.x, v3i.y].CreateWalls(1 == 1));
+            }
+            //List<Vector3Int> floorsToAdd = rooms[v3i.x, v3i.y].CreateFloors(roomSize);
+            //List<Vector3Int> wallsToAdd = rooms[v3i.x, v3i.y].CreateWalls(1==1);
+            doorsAndMoreToAdd.AddDoorListRange(rooms[v3i.x, v3i.y].CreateAllDoors());
+            foreach (Vector3Int f in doorsAndMoreToAdd.floor) { if (doorsAndMoreToAdd.wall.Contains(f)) { doorsAndMoreToAdd.wall.Remove(f); } }
+            foreach (Vector3Int d in doorsAndMoreToAdd.door) { if (doorsAndMoreToAdd.wall.Contains(d)) { doorsAndMoreToAdd.wall.Remove(d); } }
 
             if (!rooms[v3i.x, v3i.y].Opening.Equals(Direction.None))
             {
@@ -151,9 +160,9 @@ public class RoomGeneration : MonoBehaviour
                     tempLeftDoor.name = "Left";
                 }
             }
-            wallsToAdd.AddRange(rooms[v3i.x, v3i.y].FillWalls());
-            foreach (Vector3Int wta in wallsToAdd) { GameObject wallObj = MakeObj(pfWallCube, v3i, wta, RoomGrouping.transform); }
-            foreach (Vector3Int w in doorsAndMoreToAdd.wall) { GameObject wallObj = MakeObj(pfWallCube, v3i, w, RoomGrouping.transform); }
+            doorsAndMoreToAdd.wall.AddRange(rooms[v3i.x, v3i.y].FillWalls());
+            foreach (Vector3Int wta in doorsAndMoreToAdd.wall) { GameObject wallObj = MakeObj(pfWallCube, v3i, wta, RoomGrouping.transform); }
+            //foreach (Vector3Int w in doorsAndMoreToAdd.wall) { GameObject wallObj = MakeObj(pfWallCube, v3i, w, RoomGrouping.transform); }
             
             GameObject RoomFloor = Instantiate(pfFloorPlane, RoomGrouping.transform);
             RoomFloor.transform.localScale = new Vector3(roomSize.x / 10f, 1f, roomSize.y / 10f);

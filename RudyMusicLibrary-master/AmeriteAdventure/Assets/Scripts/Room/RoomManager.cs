@@ -6,14 +6,14 @@ using UnityEngine.Tilemaps;
 public class RoomManager : MonoBehaviour
 {
     //variables modified in inspector
-    public GameObject Player;
+    public GameObject Player, pfRoomGen;
     public Vector3Int numRoomsInDimension, roomSize;
     public int numRoomsInLevel;
-    public Grid levelGrid;
+    //public Grid levelGrid;
     public Tile[] tiles;
 
     //variables not accessible in inspector
-    private RoomGeneration generation_Instance;
+    private RoomGeneration[] generation_Instances;
     private Room[,] levelRooms;
     private List<RoomNode> RoomGraph;
     private Vector3Int startRoomPos;
@@ -75,12 +75,25 @@ public class RoomManager : MonoBehaviour
             }
         }
 
-        Vector3Int[] vectsToExport = { startRoomPos, numRoomsInDimension, roomSize };
-        generation_Instance = RoomGeneration.Instance();
-        generation_Instance.RoomGenerationData(levelRooms, vectsToExport, levelGrid, numRoomsInLevel, tiles, initRoomPositions);
-        generation_Instance.PlayerObject = Player;
-        generation_Instance.Init();
-        generation_Instance.Create();
+        generation_Instances = new RoomGeneration[2];
+        for (int numInstance = 0; numInstance < generation_Instances.Length; ++numInstance)
+        {
+            generation_Instances[numInstance] = Instantiate(pfRoomGen, this.transform).GetComponent<RoomGeneration>();
+            Vector3Int[] vectsToExport = { startRoomPos, numRoomsInDimension, roomSize };
+            generation_Instances[numInstance].RoomGenerationData(levelRooms, vectsToExport, generation_Instances[numInstance].GetComponent<Grid>(), numRoomsInLevel, tiles, initRoomPositions);
+            generation_Instances[numInstance].PlayerObject = Player;
+            generation_Instances[numInstance].Init();
+            if (numInstance > 0)
+            {
+                generation_Instances[numInstance].Create(false);
+                generation_Instances[numInstance].gameObject.transform.position = new Vector3(1000f, 0f, 1000f);
+            }
+            else
+            {
+                generation_Instances[numInstance].Create(true);
+            }
+        }
+
     }
 
     public void DecideRoomPathway()
