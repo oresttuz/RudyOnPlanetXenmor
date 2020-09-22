@@ -39,6 +39,10 @@ public class HealthBar : MonoBehaviour
     {
         health = new List<HeartObject>();
         int startingHealth = totalHealth;
+        //startPos = new Vector3(0f, 0f, 0f);
+        startPos = new Vector3(35f, -30f, 0f);
+        //this.transform.localPosition = new Vector3(0f, 0f, 0f);
+        HealthBarTransform = this.transform;
         for (int i = 0; i < startingHealth; i++)
         {
             AddHealth();
@@ -46,9 +50,6 @@ public class HealthBar : MonoBehaviour
         //reset just for start function
         totalHealth = startingHealth;
         currHealth = (totalHealth * 1f);
-        startPos = new Vector3(0f, 0f, 0f);
-        //startPos = new Vector3(35f, 30f, 0f);
-        this.transform.localPosition = new Vector3(0f, 0f, 0f);
     }
 
     public void Init(Vector3 whereImAt, Transform TransformToFollow)
@@ -69,26 +70,11 @@ public class HealthBar : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            Heal(1.25f);
-        }
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            Damage(1.5f);
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            AddHealth();
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            RemoveHealth(1);
-        }
-        if (!followTransform.Equals(null))
-        {
-            this.transform.position = followTransform.position + new Vector3(-0.75f,1f,0f);
-        }
+        if (Input.GetKeyDown(KeyCode.U)) { Heal(1.25f); }
+        if (Input.GetKeyDown(KeyCode.I)) { Damage(1.5f); }
+        if (Input.GetKeyDown(KeyCode.O)) { AddHealth(); }
+        if (Input.GetKeyDown(KeyCode.P)) { RemoveHealth(1); }
+        if (!followTransform.Equals(null)) { this.transform.position = followTransform.position + new Vector3(-0.75f, 1f, 0f); }
     }
 
     public void AddHealth()
@@ -107,14 +93,8 @@ public class HealthBar : MonoBehaviour
 
     public void RemoveHealth(int numHealth)
     {
-        if (numHealth < 1 || totalHealth < 0)
-        {
-            return;
-        }
-        if (numHealth > totalHealth)
-        {
-            numHealth = totalHealth;
-        }
+        if (numHealth < 1 || totalHealth < 0) { return; }
+        if (numHealth > totalHealth) { numHealth = totalHealth; }
         int tempCount = health.Count;
         for (int i = 0; i < numHealth; i++)
         {
@@ -123,10 +103,7 @@ public class HealthBar : MonoBehaviour
             Destroy(temp.gameObject);
         }
         totalHealth -= numHealth;
-        if (totalHealth < currHealth)
-        {
-            currHealth = totalHealth;
-        }
+        if (totalHealth < currHealth) { currHealth = totalHealth; }
     }
 
     public void Heal(float amount)

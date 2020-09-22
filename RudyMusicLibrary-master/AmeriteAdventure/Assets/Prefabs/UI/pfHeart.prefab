@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5611199222123132665}
   - component: {fileID: 5611199222123132671}
   - component: {fileID: 5611199222123132670}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: pfHeart
   m_TagString: Untagged
   m_Icon: {fileID: 0}

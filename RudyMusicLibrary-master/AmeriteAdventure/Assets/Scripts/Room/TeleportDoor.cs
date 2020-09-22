@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class TeleportDoor : MonoBehaviour
 {
+    public RoomGeneration myParentInstance;
     public int myX, myY, theirX, theirY;
     public GameObject DoorToTeleportTo;
     public Vector3 shiftInFrontOfDoorVec;
     public bool isLocked;
 
-    public void Init(int thisX, int thisY, int thatX, int thatY, GameObject door, Vector3 shift)
+    public void Init(RoomGeneration ins, int thisX, int thisY, int thatX, int thatY, GameObject door, Vector3 shift)
     {
+        myParentInstance = ins;
         myX = thisX;
         myY = thisY;
         theirX = thatX;
@@ -27,8 +29,8 @@ public class TeleportDoor : MonoBehaviour
         {
             if (collision.collider.gameObject.tag == "Player")
             {
-                this.GetComponentInParent<RoomGeneration>().EnableRooms(myX, myY, false);
-                this.GetComponentInParent<RoomGeneration>().EnableRooms(theirX, theirY, true);
+                myParentInstance.EnableRooms(myX, myY, false);
+                myParentInstance.EnableRooms(theirX, theirY, true);
                 collision.collider.gameObject.transform.position = DoorToTeleportTo.transform.position + shiftInFrontOfDoorVec;
             }
         }

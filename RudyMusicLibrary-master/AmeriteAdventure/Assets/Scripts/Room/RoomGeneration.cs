@@ -17,6 +17,7 @@ public class RoomGeneration : MonoBehaviour
     }
 
     public GameObject PlayerObject, pfRoomGroup, pfFloorPlane, pfWallCube, pfDoorCube, pfEnemy, pfHB;
+    public string myRGID;
 
     private bool created;
     private Vector3Int gridSize;
@@ -29,7 +30,7 @@ public class RoomGeneration : MonoBehaviour
     private Tile floor, wall, door, hallway;
     private List<Vector3Int> initRooms;
 
-    public void RoomGenerationData(Room[,] allRooms, Vector3Int[] importVect3Ints, Grid hasTileMaps, int numberOfRooms, Tile[] allTiles, List<Vector3Int> initRoomPos)
+    public void RoomGenerationData(Room[,] allRooms, Vector3Int[] importVect3Ints, Grid hasTileMaps, int numberOfRooms, Tile[] allTiles, List<Vector3Int> initRoomPos, string name)
     {
         rooms = allRooms;
 
@@ -47,6 +48,7 @@ public class RoomGeneration : MonoBehaviour
         hallway = allTiles[3];
 
         initRooms = initRoomPos;
+        myRGID = name;
     }
 
     public void Init()
@@ -125,8 +127,6 @@ public class RoomGeneration : MonoBehaviour
                 doorsAndMoreToAdd.floor.AddRange(rooms[v3i.x, v3i.y].CreateFloors(roomSize));
                 doorsAndMoreToAdd.wall.AddRange(rooms[v3i.x, v3i.y].CreateWalls(1 == 1));
             }
-            //List<Vector3Int> floorsToAdd = rooms[v3i.x, v3i.y].CreateFloors(roomSize);
-            //List<Vector3Int> wallsToAdd = rooms[v3i.x, v3i.y].CreateWalls(1==1);
             doorsAndMoreToAdd.AddDoorListRange(rooms[v3i.x, v3i.y].CreateAllDoors());
             foreach (Vector3Int f in doorsAndMoreToAdd.floor) { if (doorsAndMoreToAdd.wall.Contains(f)) { doorsAndMoreToAdd.wall.Remove(f); } }
             foreach (Vector3Int d in doorsAndMoreToAdd.door) { if (doorsAndMoreToAdd.wall.Contains(d)) { doorsAndMoreToAdd.wall.Remove(d); } }
@@ -162,7 +162,6 @@ public class RoomGeneration : MonoBehaviour
             }
             doorsAndMoreToAdd.wall.AddRange(rooms[v3i.x, v3i.y].FillWalls());
             foreach (Vector3Int wta in doorsAndMoreToAdd.wall) { GameObject wallObj = MakeObj(pfWallCube, v3i, wta, RoomGrouping.transform); }
-            //foreach (Vector3Int w in doorsAndMoreToAdd.wall) { GameObject wallObj = MakeObj(pfWallCube, v3i, w, RoomGrouping.transform); }
             
             GameObject RoomFloor = Instantiate(pfFloorPlane, RoomGrouping.transform);
             RoomFloor.transform.localScale = new Vector3(roomSize.x / 10f, 1f, roomSize.y / 10f);
@@ -197,7 +196,7 @@ public class RoomGeneration : MonoBehaviour
                         }
                     }
                     rooms[riVector.x, riVector.y].roomInGame.transform.GetChild(doorCount).GetComponent<TeleportDoor>()
-                        .Init(riVector.x, riVector.y, riVector.x, riVector.y + 1, rooms[riVector.x, riVector.y + 1].roomInGame.transform.GetChild(teleportDoorIndex).gameObject, new Vector3(0f, 0f, 2f));
+                        .Init(this, riVector.x, riVector.y, riVector.x, riVector.y + 1, rooms[riVector.x, riVector.y + 1].roomInGame.transform.GetChild(teleportDoorIndex).gameObject, new Vector3(0f, 0f, 2f));
                     ++doorCount;
                 }
                 if (rooms[riVector.x, riVector.y].Opening.HasFlag(Direction.Right))
@@ -211,7 +210,7 @@ public class RoomGeneration : MonoBehaviour
                         }
                     }
                     rooms[riVector.x, riVector.y].roomInGame.transform.GetChild(doorCount).GetComponent<TeleportDoor>()
-                        .Init(riVector.x, riVector.y, riVector.x + 1, riVector.y, rooms[riVector.x + 1, riVector.y].roomInGame.transform.GetChild(teleportDoorIndex).gameObject, new Vector3(2f, 0f, 0f));
+                        .Init(this, riVector.x, riVector.y, riVector.x + 1, riVector.y, rooms[riVector.x + 1, riVector.y].roomInGame.transform.GetChild(teleportDoorIndex).gameObject, new Vector3(2f, 0f, 0f));
                     ++doorCount;
                 }
                 if (rooms[riVector.x, riVector.y].Opening.HasFlag(Direction.Down))
@@ -225,7 +224,7 @@ public class RoomGeneration : MonoBehaviour
                         }
                     }
                     rooms[riVector.x, riVector.y].roomInGame.transform.GetChild(doorCount).GetComponent<TeleportDoor>()
-                        .Init(riVector.x, riVector.y, riVector.x, riVector.y - 1, rooms[riVector.x, riVector.y - 1].roomInGame.transform.GetChild(teleportDoorIndex).gameObject, new Vector3(0f, 0f, -2f));
+                        .Init(this, riVector.x, riVector.y, riVector.x, riVector.y - 1, rooms[riVector.x, riVector.y - 1].roomInGame.transform.GetChild(teleportDoorIndex).gameObject, new Vector3(0f, 0f, -2f));
                     ++doorCount;
                 }
                 if (rooms[riVector.x, riVector.y].Opening.HasFlag(Direction.Left))
@@ -239,7 +238,7 @@ public class RoomGeneration : MonoBehaviour
                         }
                     }
                     rooms[riVector.x, riVector.y].roomInGame.transform.GetChild(doorCount).GetComponent<TeleportDoor>()
-                        .Init(riVector.x, riVector.y, riVector.x - 1, riVector.y, rooms[riVector.x - 1, riVector.y].roomInGame.transform.GetChild(teleportDoorIndex).gameObject, new Vector3(-2f, 0f, 0f));
+                        .Init(this, riVector.x, riVector.y, riVector.x - 1, riVector.y, rooms[riVector.x - 1, riVector.y].roomInGame.transform.GetChild(teleportDoorIndex).gameObject, new Vector3(-2f, 0f, 0f));
                     ++doorCount;
                 }
             }
@@ -261,6 +260,7 @@ public class RoomGeneration : MonoBehaviour
                         new Vector3(((xCord * roomSize.x) + roomTilePos.x + (PlayerObject.transform.localScale.x / 2)), 0.99f, ((zCord * roomSize.y) + roomTilePos.z + (PlayerObject.transform.localScale.z / 2)));
                     rooms[xCord, zCord].roomInGame.transform.GetChild(rooms[xCord, zCord].roomInGame.transform.childCount - 1).GetChild(0).gameObject.SetActive(false);
                     PlayerIsLost = false;
+                    rooms[xCord, zCord].myState = RoomState.Cleared;
                 }
             }
         }
@@ -270,20 +270,29 @@ public class RoomGeneration : MonoBehaviour
     {
         if (enable)
         {
-            GameObject[] tempEnemies = new GameObject[5];
-            for (int i = 0; i < 5; ++i)
+            if (rooms[RoomX, RoomY].roomInGame.transform.GetChild(rooms[RoomX, RoomY].roomInGame.transform.childCount - 1).childCount > 0)
             {
-                Vector3 enemyStartPos = rooms[RoomX, RoomY].FindFloor();
-                //Debug.Log("Enemy Start Pos: " + enemyStartPos);
-                enemyStartPos.x += (RoomX * roomSize.x);
-                enemyStartPos.z += (RoomY * roomSize.y);
-                tempEnemies[i] = Instantiate(pfEnemy, enemyStartPos, Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
-                //Debug.Log("Actual Enemy Start Pos: " + tempEnemies[i].transform.position);
-                tempEnemies[i].GetComponent<EnemyMovement>().Player = PlayerObject;
-                tempEnemies[i].GetComponent<EnemyData>().myX = RoomX;
-                tempEnemies[i].GetComponent<EnemyData>().myY = RoomY;
-                tempEnemies[i].GetComponent<EnemyData>().EnemyHB_Instance = Instantiate(pfHB, FindObjectOfType<Canvas>().transform).GetComponent<HealthBar>();
-                tempEnemies[i].SetActive(false);
+                if (rooms[RoomX, RoomY].roomInGame.transform.GetChild(rooms[RoomX, RoomY].roomInGame.transform.childCount - 1).GetChild(0).gameObject.name == "FogOfWar")
+                {
+                    Destroy(rooms[RoomX, RoomY].roomInGame.transform.GetChild(rooms[RoomX, RoomY].roomInGame.transform.childCount - 1).GetChild(0).gameObject);
+                }
+            }
+            GameObject[] tempEnemies = new GameObject[5];
+            if (rooms[RoomX, RoomY].myState == RoomState.Unopened)
+            {
+                for (int i = 0; i < 5; ++i)
+                {
+                    Vector3 enemyStartPos = rooms[RoomX, RoomY].FindFloor();
+                    enemyStartPos.x += (RoomX * roomSize.x);
+                    enemyStartPos.z += (RoomY * roomSize.y);
+                    tempEnemies[i] = Instantiate(pfEnemy, enemyStartPos, Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
+                    tempEnemies[i].GetComponent<EnemyMovement>().Player = PlayerObject;
+                    tempEnemies[i].GetComponent<EnemyData>().myX = RoomX;
+                    tempEnemies[i].GetComponent<EnemyData>().myY = RoomY;
+                    tempEnemies[i].GetComponent<EnemyData>().EnemyHB_Instance = Instantiate(pfHB, FindObjectOfType<Canvas>().transform).GetComponent<HealthBar>();
+                    tempEnemies[i].GetComponent<EnemyData>().myIns = this;
+                    tempEnemies[i].SetActive(false);
+                }
             }
             rooms[RoomX, RoomY].enableRoom(true, tempEnemies);
         }

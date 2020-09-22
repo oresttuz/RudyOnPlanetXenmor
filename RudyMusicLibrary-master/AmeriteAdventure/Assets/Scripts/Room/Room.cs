@@ -671,7 +671,6 @@ public class Room
         if (!playerIsInRoom) { return; } //if the player isn't in this room, disregard the rest of the code
         if (myState == RoomState.Unopened) 
         {
-            roomInGame.transform.Find("FloorPlane(Clone)").GetChild(0).gameObject.SetActive(false);
             myState = RoomState.EnemiesInRoom;
             UnLockDoors(false, Opening);
             SpawnEnemies(enemyObjsToSpawn);

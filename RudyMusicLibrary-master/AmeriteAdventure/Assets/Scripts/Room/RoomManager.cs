@@ -14,7 +14,8 @@ public class RoomManager : MonoBehaviour
 
     //variables not accessible in inspector
     private RoomGeneration[] generation_Instances;
-    private Room[,] levelRooms;
+    private List<Room[,]> allLevelRooms;
+    //private Room[,] levelRooms;
     private List<RoomNode> RoomGraph;
     private Vector3Int startRoomPos;
     
@@ -35,52 +36,55 @@ public class RoomManager : MonoBehaviour
 
     private void Awake()
     {
-        levelRooms = new Room[numRoomsInDimension.x, numRoomsInDimension.y];
-        startRoomPos = new Vector3Int(Random.Range(0, numRoomsInDimension.x), Random.Range(0, numRoomsInDimension.y), 0);
-
-        levelRooms[startRoomPos.x, startRoomPos.y] = new Room(4, roomSize);
-
-        if (numRoomsInLevel > (numRoomsInDimension.x * numRoomsInDimension.y))
-        {
-            numRoomsInLevel = (numRoomsInDimension.x * numRoomsInDimension.y);
-        }
-
-        List<Walker> RoomPosInitWalkers = new List<Walker>();
-        List<Vector3Int> initRoomPositions = new List<Vector3Int>();
-        RoomPosInitWalkers.Add(new Walker(startRoomPos, new Vector3Int(0, 0, 0), numRoomsInDimension)); 
-
-        initRoomPositions.Add(startRoomPos);
-        int currRooms = 1;
-
-        while (currRooms < numRoomsInLevel)
-        {
-            Vector3Int temp;
-            foreach (Walker w in RoomPosInitWalkers)
-            {
-                if (currRooms >= numRoomsInLevel) break;
-
-                temp = w.Step();
-
-                if (temp == null) break;
-                if (initRoomPositions.Contains(temp)) break;
-
-                levelRooms[temp.x, temp.y] = new Room(4, roomSize);
-                initRoomPositions.Add(temp);
-                currRooms++;
-            }
-            bool ChanceToAddWalker = (Random.Range(0.0f, 1.0f) >= 0.5f);
-            if (ChanceToAddWalker)
-            {
-                RoomPosInitWalkers.Add(new Walker(startRoomPos, new Vector3Int(0, 0, 0), numRoomsInDimension));
-            }
-        }
-
+        allLevelRooms = new List<Room[,]>();
         generation_Instances = new RoomGeneration[2];
         for (int numInstance = 0; numInstance < generation_Instances.Length; ++numInstance)
         {
+            string ID = "Room_Generation_Instance#" + numInstance;
             generation_Instances[numInstance] = Instantiate(pfRoomGen, this.transform).GetComponent<RoomGeneration>();
+
+            allLevelRooms.Add(new Room[numRoomsInDimension.x, numRoomsInDimension.y]);
+            startRoomPos = new Vector3Int(Random.Range(0, numRoomsInDimension.x), Random.Range(0, numRoomsInDimension.y), 0);
+
+            allLevelRooms[numInstance][startRoomPos.x, startRoomPos.y] = new Room(4, roomSize);
+
+            if (numRoomsInLevel > (numRoomsInDimension.x * numRoomsInDimension.y))
+            {
+                numRoomsInLevel = (numRoomsInDimension.x * numRoomsInDimension.y);
+            }
+
+            List<Walker> RoomPosInitWalkers = new List<Walker>();
+            List<Vector3Int> initRoomPositions = new List<Vector3Int>();
+            RoomPosInitWalkers.Add(new Walker(startRoomPos, new Vector3Int(0, 0, 0), numRoomsInDimension));
+
+            initRoomPositions.Add(startRoomPos);
+            int currRooms = 1;
+
+            while (currRooms < numRoomsInLevel)
+            {
+                Vector3Int temp;
+                foreach (Walker w in RoomPosInitWalkers)
+                {
+                    if (currRooms >= numRoomsInLevel) break;
+
+                    temp = w.Step();
+
+                    if (temp == null) break;
+                    if (initRoomPositions.Contains(temp)) break;
+
+                    allLevelRooms[numInstance][temp.x, temp.y] = new Room(4, roomSize);
+                    initRoomPositions.Add(temp);
+                    currRooms++;
+                }
+                bool ChanceToAddWalker = (Random.Range(0.0f, 1.0f) >= 0.5f);
+                if (ChanceToAddWalker)
+                {
+                    RoomPosInitWalkers.Add(new Walker(startRoomPos, new Vector3Int(0, 0, 0), numRoomsInDimension));
+                }
+            }
+
             Vector3Int[] vectsToExport = { startRoomPos, numRoomsInDimension, roomSize };
-            generation_Instances[numInstance].RoomGenerationData(levelRooms, vectsToExport, generation_Instances[numInstance].GetComponent<Grid>(), numRoomsInLevel, tiles, initRoomPositions);
+            generation_Instances[numInstance].RoomGenerationData(allLevelRooms[numInstance], vectsToExport, generation_Instances[numInstance].GetComponent<Grid>(), numRoomsInLevel, tiles, initRoomPositions, ID);
             generation_Instances[numInstance].PlayerObject = Player;
             generation_Instances[numInstance].Init();
             if (numInstance > 0)
@@ -94,18 +98,41 @@ public class RoomManager : MonoBehaviour
             }
         }
 
+        
+        /*
+        generation_Instances = new RoomGeneration[2];
+        for (int numInstance = 0; numInstance < generation_Instances.Length; ++numInstance)
+        {
+            string ID = "Room_Generation_Instance#" + numInstance;
+            generation_Instances[numInstance] = Instantiate(pfRoomGen, this.transform).GetComponent<RoomGeneration>();
+            Vector3Int[] vectsToExport = { startRoomPos, numRoomsInDimension, roomSize };
+            generation_Instances[numInstance].RoomGenerationData(levelRooms, vectsToExport, generation_Instances[numInstance].GetComponent<Grid>(), numRoomsInLevel, tiles, initRoomPositions, ID);
+            generation_Instances[numInstance].PlayerObject = Player;
+            generation_Instances[numInstance].Init();
+            if (numInstance > 0)
+            {
+                generation_Instances[numInstance].Create(false);
+                generation_Instances[numInstance].gameObject.transform.position = new Vector3(1000f, 0f, 1000f);
+            }
+            else
+            {
+                generation_Instances[numInstance].Create(true);
+            }
+        }
+        */
+
     }
 
-    public void DecideRoomPathway()
+    public void DecideRoomPathway(int numIns)
     {
         List<Vector2Int> edgeRoomsToChooseFrom = new List<Vector2Int>();
-        for (int i = 0; i < levelRooms.GetLength(0); ++i)
+        for (int i = 0; i < allLevelRooms[numIns].GetLength(0); ++i)
         {
-            for (int j = 0; j < levelRooms.GetLength(1); ++j)
+            for (int j = 0; j < allLevelRooms[numIns].GetLength(1); ++j)
             {
-                if (i == 0 || i == levelRooms.GetLength(0) - 1 || j == 0 || j == levelRooms.GetLength(1) - 1)
+                if (i == 0 || i == allLevelRooms[numIns].GetLength(0) - 1 || j == 0 || j == allLevelRooms[numIns].GetLength(1) - 1)
                 {
-                    if (levelRooms[i, j] != null) { edgeRoomsToChooseFrom.Add(new Vector2Int(i, j)); }
+                    if (allLevelRooms[numIns][i, j] != null) { edgeRoomsToChooseFrom.Add(new Vector2Int(i, j)); }
                 }
             }
         }

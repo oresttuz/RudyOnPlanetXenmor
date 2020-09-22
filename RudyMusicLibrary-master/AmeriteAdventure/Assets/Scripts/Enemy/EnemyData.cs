@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyData : MonoBehaviour
 {
+    public RoomGeneration myIns;
     public HealthBar EnemyHB_Instance;
     public float health;
     public float dmg;
@@ -25,7 +26,7 @@ public class EnemyData : MonoBehaviour
     {
         if (health < 0f)
         {
-            FindObjectOfType<RoomGeneration>().EnemyDied(myX, myY);
+            myIns.EnemyDied(myX, myY);
             Destroy(EnemyHB_Instance.gameObject);
             Destroy(this.gameObject);
         }
