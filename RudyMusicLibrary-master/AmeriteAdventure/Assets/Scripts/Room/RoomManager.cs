@@ -9,46 +9,28 @@ public class RoomManager : MonoBehaviour
     public GameObject Player, pfRoomGen;
     public Vector3Int numRoomsInDimension, roomSize;
     public int numRoomsInLevel;
-    //public Grid levelGrid;
     public Tile[] tiles;
     public RoomGeneration[] generation_Instances;
 
     //variables not accessible in inspector
-
     private List<Room[,]> allLevelRooms;
-    //private Room[,] levelRooms;
-    private List<RoomNode> RoomGraph;
+    //private List<RoomNode> RoomGraph;
     private Vector3Int startRoomPos;
-    
-    /* create the floor plan for the level like in rg
-     * assign starting point
-     * create graph from the level layout
-     * determine pathways
-     * assign doorways
-     * assign endroom
-     * assign all other rooms
-     * 
-     * generate prefab rooms
-     * assign values for half-fab rooms
-     * generate half-fab rooms
-     * assign values for proc-gen rooms
-     * generate proc-gen rooms
-     */
 
     private void Awake()
     {
         allLevelRooms = new List<Room[,]>();
         generation_Instances = new RoomGeneration[3];
+        List<Vector3Int> initRoomPositionsOf0 = new List<Vector3Int>();
+        Direction tempDir = Direction.Left | Direction.Right;
+        string IDof0 = "Room_Generation_Instance#" + 0;
 
         //Init Start of Level
-        string IDof0 = "Room_Generation_Instance#" + 0;
         generation_Instances[0] = Instantiate(pfRoomGen, this.transform).GetComponent<RoomGeneration>();
         allLevelRooms.Add(new Room[1, 1]);
-        Direction tempDir = Direction.Left;
-        tempDir |= Direction.Right;
         allLevelRooms[0][0, 0] = new Room(8, roomSize, tempDir);
+        allLevelRooms[0][0, 0].myState = RoomState.Cleared;
         startRoomPos = new Vector3Int(0, 0, 0);
-        List<Vector3Int> initRoomPositionsOf0 = new List<Vector3Int>();
         initRoomPositionsOf0.Add(startRoomPos);
         Vector3Int[] vectsToExportof0 = { startRoomPos, new Vector3Int(1, 1, 0), roomSize };
         generation_Instances[0].myRGID = IDof0;
@@ -141,7 +123,12 @@ public class RoomManager : MonoBehaviour
         generation_Instances[0].FinishCreate(true);
     }
 
-    public void DecideRoomPathway(int numIns)
+    
+}
+
+/*
+
+public void DecideRoomPathway(int numIns)
     {
         List<Vector2Int> edgeRoomsToChooseFrom = new List<Vector2Int>();
         for (int i = 0; i < allLevelRooms[numIns].GetLength(0); ++i)
@@ -169,7 +156,6 @@ public class RoomManager : MonoBehaviour
         }
         //continue from here 9/17/20
     }
-}
 
 public class RoomNode
 {
@@ -199,3 +185,4 @@ public class RoomNode
         Neighbors.Add(next);
     }
 }
+*/

@@ -33,16 +33,14 @@ public class TeleportDoor : MonoBehaviour
                 myParentInstance.EnableRooms(myX, myY, false);
                 if (startDoor >= 0)
                 {
+                    Debug.Log(myParentInstance.myRGID + ": (" + myX + ", " + myY + ") | " + myOtherParent.myRGID + ": (" + theirX + ", " + theirY + ")");
                     myOtherParent.EnableRooms(theirX, theirY, true);
                 }
                 else
                 {
                     myParentInstance.EnableRooms(theirX, theirY, true);
                 }
-                Debug.Log(DoorToTeleportTo.name);
-                Debug.Log("Where Imma go: " + DoorToTeleportTo.transform.position + shiftInFrontOfDoorVec);
                 collision.collider.gameObject.transform.position = DoorToTeleportTo.transform.position + shiftInFrontOfDoorVec;
-                Debug.Log("I be here: " + collision.collider.gameObject.transform.position);
             }
         }
     }

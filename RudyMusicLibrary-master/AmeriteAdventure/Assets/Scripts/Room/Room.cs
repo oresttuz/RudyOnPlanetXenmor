@@ -766,10 +766,10 @@ public class Room
     {
         int num = -1;
         if (d.Equals(Direction.None)) { return num; }
-        if (d.HasFlag(Direction.Up)) { num = num + 1; }
-        if (d.HasFlag(Direction.Right)) { num = num + 2; }
-        if (d.HasFlag(Direction.Down)) { num = num + 4; }
-        if (d.HasFlag(Direction.Left)) { num = num + 8; }
+        if (d.Equals(Direction.Up)) { num = num + 1; }
+        if (d.Equals(Direction.Right)) { num = num + 2; }
+        if (d.Equals(Direction.Down)) { num = num + 4; }
+        if (d.Equals(Direction.Left)) { num = num + 8; }
         return num;
     }
 
