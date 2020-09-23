@@ -11,9 +11,10 @@ public class RoomManager : MonoBehaviour
     public int numRoomsInLevel;
     //public Grid levelGrid;
     public Tile[] tiles;
+    public RoomGeneration[] generation_Instances;
 
     //variables not accessible in inspector
-    private RoomGeneration[] generation_Instances;
+
     private List<Room[,]> allLevelRooms;
     //private Room[,] levelRooms;
     private List<RoomNode> RoomGraph;
@@ -37,8 +38,28 @@ public class RoomManager : MonoBehaviour
     private void Awake()
     {
         allLevelRooms = new List<Room[,]>();
-        generation_Instances = new RoomGeneration[2];
-        for (int numInstance = 0; numInstance < generation_Instances.Length; ++numInstance)
+        generation_Instances = new RoomGeneration[3];
+
+        //Init Start of Level
+        string IDof0 = "Room_Generation_Instance#" + 0;
+        generation_Instances[0] = Instantiate(pfRoomGen, this.transform).GetComponent<RoomGeneration>();
+        allLevelRooms.Add(new Room[1, 1]);
+        Direction tempDir = Direction.Left;
+        tempDir |= Direction.Right;
+        allLevelRooms[0][0, 0] = new Room(8, roomSize, tempDir);
+        startRoomPos = new Vector3Int(0, 0, 0);
+        List<Vector3Int> initRoomPositionsOf0 = new List<Vector3Int>();
+        initRoomPositionsOf0.Add(startRoomPos);
+        Vector3Int[] vectsToExportof0 = { startRoomPos, new Vector3Int(1, 1, 0), roomSize };
+        generation_Instances[0].myRGID = IDof0;
+        generation_Instances[0].startRoomVec = startRoomPos;
+        generation_Instances[0].rgShift = startRoomPos;
+        generation_Instances[0].RoomGenerationData(allLevelRooms[0], vectsToExportof0, generation_Instances[0].GetComponent<Grid>(), numRoomsInLevel, tiles, initRoomPositionsOf0, IDof0);
+        generation_Instances[0].PlayerObject = Player;
+        generation_Instances[0].Init();
+        generation_Instances[0].StartCreate();
+
+        for (int numInstance = 1; numInstance < generation_Instances.Length; ++numInstance)
         {
             string ID = "Room_Generation_Instance#" + numInstance;
             generation_Instances[numInstance] = Instantiate(pfRoomGen, this.transform).GetComponent<RoomGeneration>();
@@ -83,44 +104,41 @@ public class RoomManager : MonoBehaviour
                 }
             }
 
+            for (int x = 0; x < numRoomsInDimension.x; ++x)
+            {
+                for (int y = 0; y < numRoomsInDimension.y; ++y)
+                {
+                    if (initRoomPositions.Contains(new Vector3Int(x, y, 0)))
+                    {
+                        int count = 0;
+                        if (initRoomPositions.Contains(new Vector3Int(x + 1, y, 0))) { ++count; }
+                        if (initRoomPositions.Contains(new Vector3Int(x - 1, y, 0))) { ++count; }
+                        if (initRoomPositions.Contains(new Vector3Int(x, y + 1, 0))) { ++count; }
+                        if (initRoomPositions.Contains(new Vector3Int(x, y - 1, 0))) { ++count; }
+                        if (count != 4 && count != 0) { generation_Instances[numInstance].startRoomVec = new Vector3Int(x, y, 0); }
+                    }
+                }
+            }
+
             Vector3Int[] vectsToExport = { startRoomPos, numRoomsInDimension, roomSize };
+            generation_Instances[numInstance].myRGID = ID;
             generation_Instances[numInstance].RoomGenerationData(allLevelRooms[numInstance], vectsToExport, generation_Instances[numInstance].GetComponent<Grid>(), numRoomsInLevel, tiles, initRoomPositions, ID);
             generation_Instances[numInstance].PlayerObject = Player;
+            generation_Instances[numInstance].roomToConnectTo = allLevelRooms[0][0, 0];
             generation_Instances[numInstance].Init();
-            if (numInstance > 0)
+            generation_Instances[numInstance].Create(false);
+            if (numInstance == 1)
             {
-                generation_Instances[numInstance].Create(false);
-                generation_Instances[numInstance].gameObject.transform.position = new Vector3(1000f, 0f, 1000f);
+                generation_Instances[numInstance].gameObject.transform.position = new Vector3(-500f, 0f, 500f);
+                generation_Instances[numInstance].rgShift = new Vector3(-500f, 0f, 500f);
             }
             else
             {
-                generation_Instances[numInstance].Create(true);
+                generation_Instances[numInstance].gameObject.transform.position = new Vector3(500f, 0f, 500f);
+                generation_Instances[numInstance].rgShift = new Vector3(500f, 0f, 500f);
             }
         }
-
-        
-        /*
-        generation_Instances = new RoomGeneration[2];
-        for (int numInstance = 0; numInstance < generation_Instances.Length; ++numInstance)
-        {
-            string ID = "Room_Generation_Instance#" + numInstance;
-            generation_Instances[numInstance] = Instantiate(pfRoomGen, this.transform).GetComponent<RoomGeneration>();
-            Vector3Int[] vectsToExport = { startRoomPos, numRoomsInDimension, roomSize };
-            generation_Instances[numInstance].RoomGenerationData(levelRooms, vectsToExport, generation_Instances[numInstance].GetComponent<Grid>(), numRoomsInLevel, tiles, initRoomPositions, ID);
-            generation_Instances[numInstance].PlayerObject = Player;
-            generation_Instances[numInstance].Init();
-            if (numInstance > 0)
-            {
-                generation_Instances[numInstance].Create(false);
-                generation_Instances[numInstance].gameObject.transform.position = new Vector3(1000f, 0f, 1000f);
-            }
-            else
-            {
-                generation_Instances[numInstance].Create(true);
-            }
-        }
-        */
-
+        generation_Instances[0].FinishCreate(true);
     }
 
     public void DecideRoomPathway(int numIns)

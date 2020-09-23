@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TeleportDoor : MonoBehaviour
 {
-    public RoomGeneration myParentInstance;
+    public RoomGeneration myParentInstance, myOtherParent;
+    public int startDoor = -1;
     public int myX, myY, theirX, theirY;
     public GameObject DoorToTeleportTo;
     public Vector3 shiftInFrontOfDoorVec;
@@ -30,8 +31,18 @@ public class TeleportDoor : MonoBehaviour
             if (collision.collider.gameObject.tag == "Player")
             {
                 myParentInstance.EnableRooms(myX, myY, false);
-                myParentInstance.EnableRooms(theirX, theirY, true);
+                if (startDoor >= 0)
+                {
+                    myOtherParent.EnableRooms(theirX, theirY, true);
+                }
+                else
+                {
+                    myParentInstance.EnableRooms(theirX, theirY, true);
+                }
+                Debug.Log(DoorToTeleportTo.name);
+                Debug.Log("Where Imma go: " + DoorToTeleportTo.transform.position + shiftInFrontOfDoorVec);
                 collision.collider.gameObject.transform.position = DoorToTeleportTo.transform.position + shiftInFrontOfDoorVec;
+                Debug.Log("I be here: " + collision.collider.gameObject.transform.position);
             }
         }
     }

@@ -18,6 +18,9 @@ public class RoomGeneration : MonoBehaviour
 
     public GameObject PlayerObject, pfRoomGroup, pfFloorPlane, pfWallCube, pfDoorCube, pfEnemy, pfHB;
     public string myRGID;
+    public Vector3Int startRoomVec = new Vector3Int(-1,-1,-1), endRoomVec = new Vector3Int(-1, -1, -1);
+    public Room roomToConnectTo;
+    public Vector3 rgShift;
 
     private bool created;
     private Vector3Int gridSize;
@@ -70,6 +73,26 @@ public class RoomGeneration : MonoBehaviour
         created = true;
     }
 
+    public void StartCreate()
+    {
+        if (!created)
+        {
+            Pathing();
+            CreateRooms();
+            
+        }
+        created = true;
+    }
+
+    public void FinishCreate(bool playerIsInhere)
+    {
+        if (created)
+        {
+            int yes = 0;
+            ConnectDoorWays(yes);
+            if (playerIsInhere) { PutPlayerInStartingRoom(); }
+        }
+    }
 
     public void Pathing()
     {
@@ -105,6 +128,32 @@ public class RoomGeneration : MonoBehaviour
                         if (rooms[x - 1, y] != null)
                         {
                             rooms[x, y].Opening |= Direction.Left;
+                        }
+                    }
+                    if (startRoomVec.z != -1 && totalRoomNum.x != 1 && totalRoomNum.y != 1)
+                    {
+                        if (x == startRoomVec.x && y == startRoomVec.y) //START ROOM; needs to an edge room
+                        {
+                            if (!rooms[x, y].Opening.HasFlag(Direction.Right))
+                            {
+                                rooms[x, y].Opening |= Direction.Right;
+                                rooms[x, y].DirectionToStart = Direction.Right;
+                            }
+                            else if (!rooms[x, y].Opening.HasFlag(Direction.Down))
+                            {
+                                rooms[x, y].Opening |= Direction.Down;
+                                rooms[x, y].DirectionToStart = Direction.Down;
+                            }
+                            else if (!rooms[x, y].Opening.HasFlag(Direction.Left))
+                            {
+                                rooms[x, y].Opening |= Direction.Left;
+                                rooms[x, y].DirectionToStart = Direction.Left;
+                            }
+                            else if (!rooms[x, y].Opening.HasFlag(Direction.Up))
+                            {
+                                rooms[x, y].Opening |= Direction.Up;
+                                rooms[x, y].DirectionToStart = Direction.Up;
+                            }
                         }
                     }
                 }
@@ -184,8 +233,39 @@ public class RoomGeneration : MonoBehaviour
         {
             if (!rooms[riVector.x, riVector.y].Opening.Equals(Direction.None))
             {
-                int doorCount = 0;
-                if (rooms[riVector.x, riVector.y].Opening.HasFlag(Direction.Up))
+                int doorCount = 0, thisDoorWasMade = -1;
+                if (riVector.Equals(startRoomVec))
+                {
+                    if (myRGID == "Room_Generation_Instance#1")
+                    {
+                        int teleportDoorIndex = 0;
+                        for (int objNum = 0; objNum < 4; ++objNum)
+                        {
+                            if (rooms[riVector.x, riVector.y].roomInGame.transform.GetChild(objNum).gameObject.name == rooms[riVector.x, riVector.y].DirectionToString(rooms[riVector.x, riVector.y].DirectionToStart))
+                            {
+                                teleportDoorIndex = objNum;
+                            }
+                        }
+                        rooms[riVector.x, riVector.y].roomInGame.transform.GetChild(teleportDoorIndex).GetComponent<TeleportDoor>()
+                        .Init(this, riVector.x, riVector.y, startRoomVec.x, startRoomVec.y, roomToConnectTo.roomInGame.transform.GetChild(0).gameObject, new Vector3(2f, 0f, 0f));
+                        thisDoorWasMade = rooms[riVector.x, riVector.y].DirectionToInt(rooms[riVector.x, riVector.y].DirectionToStart);
+                    }
+                    if (myRGID == "Room_Generation_Instance#2")
+                    {
+                        int teleportDoorIndex = 0;
+                        for (int objNum = 0; objNum < 4; ++objNum)
+                        {
+                            if (rooms[riVector.x, riVector.y].roomInGame.transform.GetChild(objNum).gameObject.name == rooms[riVector.x, riVector.y].DirectionToString(rooms[riVector.x, riVector.y].DirectionToStart))
+                            {
+                                teleportDoorIndex = objNum;
+                            }
+                        }
+                        rooms[riVector.x, riVector.y].roomInGame.transform.GetChild(teleportDoorIndex).GetComponent<TeleportDoor>()
+                        .Init(this, riVector.x, riVector.y, startRoomVec.x, startRoomVec.y, roomToConnectTo.roomInGame.transform.GetChild(1).gameObject, new Vector3(-2f, 0f, 0f));
+                        thisDoorWasMade = rooms[riVector.x, riVector.y].DirectionToInt(rooms[riVector.x, riVector.y].DirectionToStart);
+                    }
+                }
+                if (rooms[riVector.x, riVector.y].Opening.HasFlag(Direction.Up) && thisDoorWasMade != 0)
                 {
                     int teleportDoorIndex = 0;
                     for (int objNum = 0; objNum < 4; ++objNum)
@@ -199,7 +279,7 @@ public class RoomGeneration : MonoBehaviour
                         .Init(this, riVector.x, riVector.y, riVector.x, riVector.y + 1, rooms[riVector.x, riVector.y + 1].roomInGame.transform.GetChild(teleportDoorIndex).gameObject, new Vector3(0f, 0f, 2f));
                     ++doorCount;
                 }
-                if (rooms[riVector.x, riVector.y].Opening.HasFlag(Direction.Right))
+                if (rooms[riVector.x, riVector.y].Opening.HasFlag(Direction.Right) && thisDoorWasMade != 1)
                 {
                     int teleportDoorIndex = 0;
                     for (int objNum = 0; objNum < 4; ++objNum)
@@ -213,7 +293,7 @@ public class RoomGeneration : MonoBehaviour
                         .Init(this, riVector.x, riVector.y, riVector.x + 1, riVector.y, rooms[riVector.x + 1, riVector.y].roomInGame.transform.GetChild(teleportDoorIndex).gameObject, new Vector3(2f, 0f, 0f));
                     ++doorCount;
                 }
-                if (rooms[riVector.x, riVector.y].Opening.HasFlag(Direction.Down))
+                if (rooms[riVector.x, riVector.y].Opening.HasFlag(Direction.Down) && thisDoorWasMade != 3)
                 {
                     int teleportDoorIndex = 0;
                     for (int objNum = 0; objNum < 4; ++objNum)
@@ -227,7 +307,7 @@ public class RoomGeneration : MonoBehaviour
                         .Init(this, riVector.x, riVector.y, riVector.x, riVector.y - 1, rooms[riVector.x, riVector.y - 1].roomInGame.transform.GetChild(teleportDoorIndex).gameObject, new Vector3(0f, 0f, -2f));
                     ++doorCount;
                 }
-                if (rooms[riVector.x, riVector.y].Opening.HasFlag(Direction.Left))
+                if (rooms[riVector.x, riVector.y].Opening.HasFlag(Direction.Left) && thisDoorWasMade != 7)
                 {
                     int teleportDoorIndex = 0;
                     for (int objNum = 0; objNum < 4; ++objNum)
@@ -242,6 +322,92 @@ public class RoomGeneration : MonoBehaviour
                     ++doorCount;
                 }
             }
+        }
+    }
+
+    public void ConnectDoorWays(int startYesOrNo)
+    {
+        if (myRGID == "Room_Generation_Instance#0")
+        {
+            int firstShiftId, secondShiftId;
+            Vector3Int first, second;
+            Vector3 firstShift, secondShift;
+            string firstStr, secondStr;
+            int firstDoor = -1, secondDoor = -1;
+            //First
+            first = GetComponentInParent<RoomManager>().generation_Instances[1].startRoomVec;
+            firstShiftId = GetComponentInParent<RoomManager>().generation_Instances[1].rooms[first.x, first.y].DirectionToInt(GetComponentInParent<RoomManager>().generation_Instances[1].rooms[first.x, first.y].DirectionToStart);
+            switch (firstShiftId)
+            {
+                case 0: //UP
+                    firstShift = new Vector3(0f, 0f, -2f);
+                    firstStr = "Up";
+                    break;
+                case 1: //RIGHT
+                    firstShift = new Vector3(-2f, 0f, 0f);
+                    firstStr = "Right";
+                    break;
+                case 3: //DOWN
+                    firstShift = new Vector3(0f, 0f, 2f);
+                    firstStr = "Down";
+                    break;
+                case 7: //LEFT
+                    firstShift = new Vector3(2f, 0f, 0f);
+                    firstStr = "Left";
+                    break;
+                default: //NONE
+                    firstShift = new Vector3(-1f, -1f, -1f);
+                    firstStr = "None";
+                    break;
+            }
+            for (int i = 0; i < 4; ++i)
+            {
+                if (GetComponentInParent<RoomManager>().generation_Instances[1].rooms[first.x, first.y].roomInGame.transform.GetChild(i).name == firstStr)
+                {
+                    firstDoor = i;
+                }
+            }
+            rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(1).GetComponent<TeleportDoor>()
+                .Init(this, startRoomVec.x, startRoomVec.y, first.x, first.y, GetComponentInParent<RoomManager>().generation_Instances[1].rooms[first.x, first.y].roomInGame.transform.GetChild(firstDoor).gameObject, firstShift);
+            rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(1).GetComponent<TeleportDoor>().myOtherParent = GetComponentInParent<RoomManager>().generation_Instances[1];
+            rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(1).GetComponent<TeleportDoor>().startDoor = 1;
+            //Second
+            second = GetComponentInParent<RoomManager>().generation_Instances[2].startRoomVec;
+            secondShiftId = GetComponentInParent<RoomManager>().generation_Instances[2].rooms[second.x, second.y].DirectionToInt(GetComponentInParent<RoomManager>().generation_Instances[2].rooms[second.x, second.y].DirectionToStart);
+            switch (secondShiftId)
+            {
+                case 0: //UP
+                    secondShift = new Vector3(0f, 0f, -2f);
+                    secondStr = "Up";
+                    break;
+                case 1: //RIGHT
+                    secondShift = new Vector3(-2f, 0f, 0f);
+                    secondStr = "Right";
+                    break;
+                case 3: //DOWN
+                    secondShift = new Vector3(0f, 0f, 2f);
+                    secondStr = "Down";
+                    break;
+                case 7: //LEFT
+                    secondShift = new Vector3(2f, 0f, 0f);
+                    secondStr = "Left";
+                    break;
+                default: //NONE
+                    secondShift = new Vector3(-1f, -1f, -1f);
+                    secondStr = "None";
+                    break;
+            }
+            for (int i = 0; i < 4; ++i)
+            {
+                if (GetComponentInParent<RoomManager>().generation_Instances[2].rooms[second.x, second.y].roomInGame.transform.GetChild(i).name == secondStr)
+                {
+                    secondDoor = i;
+                }
+            }
+            rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(0).GetComponent<TeleportDoor>()
+                .Init(this, startRoomVec.x, startRoomVec.y, second.x, second.y, GetComponentInParent<RoomManager>().generation_Instances[2].rooms[second.x, second.y].roomInGame.transform.GetChild(secondDoor).gameObject, secondShift);
+            rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(0).GetComponent<TeleportDoor>().myOtherParent = GetComponentInParent<RoomManager>().generation_Instances[2];
+            rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(0).GetComponent<TeleportDoor>().startDoor = 2;
         }
     }
 
@@ -270,6 +436,7 @@ public class RoomGeneration : MonoBehaviour
     {
         if (enable)
         {
+            Debug.Log(RoomX + ", " + RoomY + ": " + rooms[RoomX, RoomY]);
             if (rooms[RoomX, RoomY].roomInGame.transform.GetChild(rooms[RoomX, RoomY].roomInGame.transform.childCount - 1).childCount > 0)
             {
                 if (rooms[RoomX, RoomY].roomInGame.transform.GetChild(rooms[RoomX, RoomY].roomInGame.transform.childCount - 1).GetChild(0).gameObject.name == "FogOfWar")
@@ -283,8 +450,8 @@ public class RoomGeneration : MonoBehaviour
                 for (int i = 0; i < 5; ++i)
                 {
                     Vector3 enemyStartPos = rooms[RoomX, RoomY].FindFloor();
-                    enemyStartPos.x += (RoomX * roomSize.x);
-                    enemyStartPos.z += (RoomY * roomSize.y);
+                    enemyStartPos.x += ((RoomX * roomSize.x) + rgShift.x);
+                    enemyStartPos.z += ((RoomY * roomSize.y) + rgShift.z);
                     tempEnemies[i] = Instantiate(pfEnemy, enemyStartPos, Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
                     tempEnemies[i].GetComponent<EnemyMovement>().Player = PlayerObject;
                     tempEnemies[i].GetComponent<EnemyData>().myX = RoomX;

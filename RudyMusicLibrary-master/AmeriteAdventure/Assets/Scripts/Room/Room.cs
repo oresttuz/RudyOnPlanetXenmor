@@ -8,7 +8,7 @@ using UnityEngine.AI;
 public class Room
 {
     public int boundary, numEnemies;
-    public Direction Opening, HallwayMade;
+    public Direction Opening, DirectionToStart = Direction.None, HallwayMade;
     public TileType[,] RoomGrid;
     public Door[] doors;
     public GameObject roomInGame;
@@ -760,6 +760,44 @@ public class Room
             if (RoomGrid[floorPos.x, floorPos.z] == TileType.floor) { return floorPos; }
         }
         return floorPos;
+    }
+
+    public int DirectionToInt(Direction d)
+    {
+        int num = -1;
+        if (d.Equals(Direction.None)) { return num; }
+        if (d.HasFlag(Direction.Up)) { num = num + 1; }
+        if (d.HasFlag(Direction.Right)) { num = num + 2; }
+        if (d.HasFlag(Direction.Down)) { num = num + 4; }
+        if (d.HasFlag(Direction.Left)) { num = num + 8; }
+        return num;
+    }
+
+    public string DirectionToString(Direction d)
+    {
+        string id = "";
+        if (d.Equals(Direction.None)) { return id; }
+        if (d.Equals(Direction.Up))
+        {
+            id = "Up";
+            return id;
+        }
+        if (d.Equals(Direction.Right))
+        {
+            id = "Right";
+            return id;
+        }
+        if (d.Equals(Direction.Down))
+        {
+            id = "Down";
+            return id;
+        }
+        if (d.Equals(Direction.Left))
+        {
+            id = "Left";
+            return id;
+        }
+        return id;
     }
 }
 
