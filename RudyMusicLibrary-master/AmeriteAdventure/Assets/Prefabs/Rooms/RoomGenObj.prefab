@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 6563317464869359595}
   - component: {fileID: 6563317464869359598}
   m_Layer: 0
-  m_Name: Grid 1
+  m_Name: RoomGenObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -271,6 +271,11 @@ MonoBehaviour:
     type: 3}
   pfEnemy: {fileID: 3150227168600565355, guid: 986d90454727c5e4ab98946064c810ef, type: 3}
   pfHB: {fileID: 7666605178362791742, guid: 208c073669ac6484188acb8f61ea7243, type: 3}
+  pfExit: {fileID: 5147953153772018124, guid: ee5240db54ef03c4ebb32023394270fa, type: 3}
+  myRGID: 
+  startRoomVec: {x: -1, y: -1, z: -1}
+  endRoomVec: {x: -1, y: -1, z: -1}
+  rgShift: {x: 0, y: 0, z: 0}
 --- !u!1 &6563317465365668126
 GameObject:
   m_ObjectHideFlags: 0

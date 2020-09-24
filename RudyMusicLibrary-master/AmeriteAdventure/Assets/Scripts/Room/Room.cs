@@ -256,7 +256,15 @@ public class Room
                     {
                         if (w.pos != w.prevPos && w.pos.y == w.prevPos.y && !DoorFound)
                         {
-                            if (RoomGrid[w.pos.x, w.pos.y] == TileType.wall && RoomGrid[w.prevPos.x, w.prevPos.y] == TileType.wall)
+                            if (w.pos.x >= RoomGrid.GetLength(0) || w.pos.x < 0 || w.pos.y >= RoomGrid.GetLength(1) || w.pos.y < 0)
+                            {
+                                Debug.LogError("W.pos was bad: " + w.pos);
+                            }
+                            else if (w.prevPos.x >= RoomGrid.GetLength(0) || w.prevPos.x < 0 || w.prevPos.y >= RoomGrid.GetLength(1) || w.prevPos.y < 0)
+                            {
+                                Debug.LogError("W.prevPos was bad: " + w.prevPos);
+                            }
+                            else if (RoomGrid[w.pos.x, w.pos.y] == TileType.wall && RoomGrid[w.prevPos.x, w.prevPos.y] == TileType.wall)
                             {
                                 DoorFound = true;
                                 if (RoomGrid[w.pos.x, w.pos.y - 1] != TileType.floor || RoomGrid[w.prevPos.x, w.prevPos.y - 1] != TileType.floor)
@@ -344,7 +352,15 @@ public class Room
                     {
                         if (w.pos != w.prevPos && w.pos.x == w.prevPos.x && !DoorFound)
                         {
-                            if (RoomGrid[w.pos.x, w.pos.y] == TileType.wall && RoomGrid[w.prevPos.x, w.prevPos.y] == TileType.wall)
+                            if (w.pos.x >= RoomGrid.GetLength(0) || w.pos.x < 0 || w.pos.y >= RoomGrid.GetLength(1) || w.pos.y < 0)
+                            {
+                                Debug.LogError("W.pos was bad: " + w.pos);
+                            }
+                            else if (w.prevPos.x >= RoomGrid.GetLength(0) || w.prevPos.x < 0 || w.prevPos.y >= RoomGrid.GetLength(1) || w.prevPos.y < 0)
+                            {
+                                Debug.LogError("W.prevPos was bad: " + w.prevPos);
+                            }
+                            else if (RoomGrid[w.pos.x, w.pos.y] == TileType.wall && RoomGrid[w.prevPos.x, w.prevPos.y] == TileType.wall)
                             {
                                 DoorFound = true;
                                 if (RoomGrid[w.pos.x - 1, w.pos.y] != TileType.floor || RoomGrid[w.prevPos.x - 1, w.prevPos.y] != TileType.floor)
@@ -432,7 +448,15 @@ public class Room
                     {
                         if (w.pos != w.prevPos && w.pos.y == w.prevPos.y && !DoorFound)
                         {
-                            if (RoomGrid[w.pos.x, w.pos.y] == TileType.wall && RoomGrid[w.prevPos.x, w.prevPos.y] == TileType.wall) //crashed twice?
+                            if (w.pos.x >= RoomGrid.GetLength(0) || w.pos.x < 0 || w.pos.y >= RoomGrid.GetLength(1) || w.pos.y < 0)
+                            {
+                                Debug.LogError("W.pos was bad: " + w.pos);
+                            }
+                            else if (w.prevPos.x >= RoomGrid.GetLength(0) || w.prevPos.x < 0 || w.prevPos.y >= RoomGrid.GetLength(1) || w.prevPos.y < 0)
+                            {
+                                Debug.LogError("W.prevPos was bad: " + w.prevPos);
+                            }
+                            else if (RoomGrid[w.pos.x, w.pos.y] == TileType.wall && RoomGrid[w.prevPos.x, w.prevPos.y] == TileType.wall)
                             {
                                 DoorFound = true;
                                 if (RoomGrid[w.pos.x, w.pos.y + 1] != TileType.floor || RoomGrid[w.prevPos.x, w.prevPos.y + 1] != TileType.floor)
@@ -520,7 +544,15 @@ public class Room
                     {
                         if (w.pos != w.prevPos && w.pos.x == w.prevPos.x && !DoorFound)
                         {
-                            if (RoomGrid[w.pos.x, w.pos.y] == TileType.wall && RoomGrid[w.prevPos.x, w.prevPos.y] == TileType.wall)
+                            if (w.pos.x >= RoomGrid.GetLength(0) || w.pos.x < 0 || w.pos.y >= RoomGrid.GetLength(1) || w.pos.y < 0)
+                            {
+                                Debug.LogError("W.pos was bad: " + w.pos);
+                            }
+                            else if (w.prevPos.x >= RoomGrid.GetLength(0) || w.prevPos.x < 0 || w.prevPos.y >= RoomGrid.GetLength(1) || w.prevPos.y < 0)
+                            {
+                                Debug.LogError("W.prevPos was bad: " + w.prevPos);
+                            }
+                            else if (RoomGrid[w.pos.x, w.pos.y] == TileType.wall && RoomGrid[w.prevPos.x, w.prevPos.y] == TileType.wall)
                             {
                                 DoorFound = true;
                                 if (RoomGrid[w.pos.x + 1, w.pos.y] != TileType.floor || RoomGrid[w.prevPos.x + 1, w.prevPos.y] != TileType.floor)
@@ -652,12 +684,10 @@ public class Room
         if (myState == RoomState.Cleared) { return; } //if room is cleared, disregard this function
         roomInGame.SetActive(playerIsInRoom);
         if (!playerIsInRoom) { return; }
-        Debug.Log("Enabling Room...");
         if (myState == RoomState.Unopened)
         {
             Debug.Log(roomInGame.transform.GetChild(roomInGame.transform.childCount - 1).GetChild(0).name);
             roomInGame.transform.GetChild(roomInGame.transform.childCount - 1).GetChild(0).gameObject.SetActive(false);
-            //Debug.Log("Room will Be locked");
             myState = RoomState.EnemiesInRoom;
             UnLockDoors(false, Opening);
         }
@@ -665,7 +695,7 @@ public class Room
 
     public void enableRoom(bool playerIsInRoom, GameObject[] enemyObjsToSpawn)
     {
-        Debug.Log(myState + " = mystate");
+        Debug.Log(myState + " = mystate ; " + playerIsInRoom);
         if (myState == RoomState.Cleared) { return; } //if room is cleared, disregard this function
         roomInGame.SetActive(playerIsInRoom);
         if (!playerIsInRoom) { return; } //if the player isn't in this room, disregard the rest of the code
@@ -679,51 +709,29 @@ public class Room
 
     public void UnLockDoors(bool unlock, Direction theseDoorDirections)
     {
-        //Debug.Log(theseDoorDirections);
         Direction DoorsAltered = Direction.None;
         for (int currDoor = 0; currDoor < 4; ++currDoor)
         {
-            //Debug.Log(roomInGame.transform.GetChild(currDoor).gameObject.name);
             if (roomInGame.transform.GetChild(currDoor).gameObject.name == "Wall(Clone)") { break; }
             if (theseDoorDirections.HasFlag(Direction.Up) && !DoorsAltered.HasFlag(Direction.Up))
             {
                 DoorsAltered |= Direction.Up;
-                if (roomInGame.transform.GetChild(currDoor).gameObject.name == "Up")
-                {
-                    //roomInGame.transform.GetChild(currDoor).GetComponent<Collider>().isTrigger = unlock;
-                    roomInGame.transform.GetChild(currDoor).GetComponent<TeleportDoor>().isLocked = !unlock;
-                    //Debug.Log("Up door is locked: " + roomInGame.transform.GetChild(currDoor).GetComponent<TeleportDoor>().isLocked);
-                }
+                if (roomInGame.transform.GetChild(currDoor).gameObject.name == "Up") { roomInGame.transform.GetChild(currDoor).GetComponent<TeleportDoor>().isLocked = !unlock; }
             }
             else if (theseDoorDirections.HasFlag(Direction.Right) && !DoorsAltered.HasFlag(Direction.Right))
             {
                 DoorsAltered |= Direction.Right;
-                if (roomInGame.transform.GetChild(currDoor).gameObject.name == "Right")
-                {
-                    //roomInGame.transform.GetChild(currDoor).GetComponent<Collider>().isTrigger = unlock;
-                    roomInGame.transform.GetChild(currDoor).GetComponent<TeleportDoor>().isLocked = !unlock;
-                    //Debug.Log("Right door is locked: " + roomInGame.transform.GetChild(currDoor).GetComponent<TeleportDoor>().isLocked);
-                }
+                if (roomInGame.transform.GetChild(currDoor).gameObject.name == "Right") { roomInGame.transform.GetChild(currDoor).GetComponent<TeleportDoor>().isLocked = !unlock; }
             }
             else if (theseDoorDirections.HasFlag(Direction.Down) && !DoorsAltered.HasFlag(Direction.Down))
             {
                 DoorsAltered |= Direction.Down;
-                if (roomInGame.transform.GetChild(currDoor).gameObject.name == "Down")
-                {
-                    //roomInGame.transform.GetChild(currDoor).GetComponent<Collider>().isTrigger = unlock;
-                    roomInGame.transform.GetChild(currDoor).GetComponent<TeleportDoor>().isLocked = !unlock;
-                    //Debug.Log("Down door is locked: " + roomInGame.transform.GetChild(currDoor).GetComponent<TeleportDoor>().isLocked);
-                }
+                if (roomInGame.transform.GetChild(currDoor).gameObject.name == "Down") { roomInGame.transform.GetChild(currDoor).GetComponent<TeleportDoor>().isLocked = !unlock; }
             }
             else if (theseDoorDirections.HasFlag(Direction.Left) && !DoorsAltered.HasFlag(Direction.Left))
             {
                 DoorsAltered |= Direction.Left;
-                if (roomInGame.transform.GetChild(currDoor).gameObject.name == "Left")
-                {
-                    //roomInGame.transform.GetChild(currDoor).GetComponent<Collider>().isTrigger = unlock;
-                    roomInGame.transform.GetChild(currDoor).GetComponent<TeleportDoor>().isLocked = !unlock;
-                    //Debug.Log("Left door is locked: " + roomInGame.transform.GetChild(currDoor).GetComponent<TeleportDoor>().isLocked);
-                }
+                if (roomInGame.transform.GetChild(currDoor).gameObject.name == "Left") { roomInGame.transform.GetChild(currDoor).GetComponent<TeleportDoor>().isLocked = !unlock; }
             }
         }
     }

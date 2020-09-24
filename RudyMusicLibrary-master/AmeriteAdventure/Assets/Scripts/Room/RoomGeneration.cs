@@ -16,7 +16,7 @@ public class RoomGeneration : MonoBehaviour
         return instance;
     }
 
-    public GameObject PlayerObject, pfRoomGroup, pfFloorPlane, pfWallCube, pfDoorCube, pfEnemy, pfHB;
+    public GameObject PlayerObject, pfRoomGroup, pfFloorPlane, pfWallCube, pfDoorCube, pfEnemy, pfHB, pfExit;
     public string myRGID;
     public Vector3Int startRoomVec = new Vector3Int(-1,-1,-1), endRoomVec = new Vector3Int(-1, -1, -1);
     public Room roomToConnectTo;
@@ -209,7 +209,13 @@ public class RoomGeneration : MonoBehaviour
             }
             doorsAndMoreToAdd.wall.AddRange(rooms[v3i.x, v3i.y].FillWalls());
             foreach (Vector3Int wta in doorsAndMoreToAdd.wall) { GameObject wallObj = MakeObj(pfWallCube, v3i, wta, RoomGrouping.transform); }
-            
+            if (v3i == endRoomVec)
+            {
+                GameObject tempExitDoor = Instantiate(pfExit, RoomGrouping.transform);
+                Vector3Int exitTile = rooms[v3i.x, v3i.y].FindFloor();
+                Debug.Log(exitTile);
+                tempExitDoor.transform.localPosition = new Vector3((v3i.x * roomSize.x) + exitTile.x, 0.05f, (v3i.y * roomSize.y) + exitTile.z);
+            }
             GameObject RoomFloor = Instantiate(pfFloorPlane, RoomGrouping.transform);
             RoomFloor.transform.localScale = new Vector3(roomSize.x / 10f, 1f, roomSize.y / 10f);
             RoomFloor.transform.position = new Vector3((v3i.x * roomSize.x) + (roomSize.x / 2), 0f, (v3i.y * roomSize.y) + (roomSize.y / 2));
