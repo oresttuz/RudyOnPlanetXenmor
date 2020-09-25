@@ -11,7 +11,7 @@ public class RoomManager : MonoBehaviour
     public int numRoomsInLevel;
     public Tile[] tiles;
     public RoomGeneration[] generation_Instances;
-    public bool isBossRoom
+    public bool isBossRoom;
 
     //variables not accessible in inspector
     private List<Room[,]> allLevelRooms;
@@ -152,8 +152,28 @@ public class RoomManager : MonoBehaviour
 
     private void BossGen()
     {
-        //spawn first room
-        //spawn boss room
+        allLevelRooms = new List<Room[,]>();
+        generation_Instances = new RoomGeneration[1];
+        List<Vector3Int> initRoomPositionsBoss = new List<Vector3Int>();
+        string IDofBoss = "Room_Generation_Instance#Boss";
+        numRoomsInLevel = 2;
+        allLevelRooms.Add(new Room[1, 2]);
+        allLevelRooms[0][0, 0] = new Room(16, roomSize, Direction.Up); //spawn first room
+        allLevelRooms[0][0, 0].myState = RoomState.Cleared;
+        allLevelRooms[0][0, 1] = new Room(2, roomSize, Direction.Down); //spawn boss room
+        allLevelRooms[0][0, 1].isABossRoom = true;
+        generation_Instances[0] = Instantiate(pfRoomGen, this.transform).GetComponent<RoomGeneration>();
+        startRoomPos = new Vector3Int(0, 0, 0);
+        initRoomPositionsBoss.Add(startRoomPos);
+        initRoomPositionsBoss.Add(new Vector3Int(0,1,0));
+        Vector3Int[] vectsToExportof0 = { startRoomPos, new Vector3Int(1, 1, 0), roomSize };
+        generation_Instances[0].myRGID = IDofBoss;
+        generation_Instances[0].startRoomVec = startRoomPos;
+        generation_Instances[0].rgShift = startRoomPos;
+        generation_Instances[0].RoomGenerationData(allLevelRooms[0], vectsToExportof0, generation_Instances[0].GetComponent<Grid>(), numRoomsInLevel, tiles, initRoomPositionsBoss, IDofBoss);
+        generation_Instances[0].PlayerObject = Player;
+        generation_Instances[0].Init();
+        generation_Instances[0].Create(true);
     }
 }
 

@@ -39,9 +39,7 @@ public class HealthBar : MonoBehaviour
     {
         health = new List<HeartObject>();
         int startingHealth = totalHealth;
-        //startPos = new Vector3(0f, 0f, 0f);
         startPos = new Vector3(35f, -30f, 0f);
-        //this.transform.localPosition = new Vector3(0f, 0f, 0f);
         HealthBarTransform = this.transform;
         for (int i = 0; i < startingHealth; i++)
         {
@@ -66,6 +64,14 @@ public class HealthBar : MonoBehaviour
         startPos = whereImAt;
         HealthBarTransform = this.transform;
         followTransform = TransformToFollow;
+    }
+
+    public void UpdateHpOnSceneLoad(float sceneHp)
+    {
+        if (sceneHp < currHealth)
+        {
+            Damage(currHealth - sceneHp);
+        }
     }
 
     private void Update()

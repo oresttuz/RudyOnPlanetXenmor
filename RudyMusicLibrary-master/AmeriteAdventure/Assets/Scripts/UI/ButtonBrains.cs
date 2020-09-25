@@ -5,9 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class ButtonBrains : MonoBehaviour
 {
+    public GameObject ResetObject;
+
     public void BeginGame()
     {
         SceneManager.LoadScene("Main");
+        DontDestroyOnLoad(ResetObject);
     }
 
     public void ExitGame()

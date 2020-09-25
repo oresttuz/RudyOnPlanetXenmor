@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class Room
 {
     public int boundary, numEnemies;
+    public bool isABossRoom;
     public Direction Opening, DirectionToStart = Direction.None, HallwayMade;
     public TileType[,] RoomGrid;
     public Door[] doors;

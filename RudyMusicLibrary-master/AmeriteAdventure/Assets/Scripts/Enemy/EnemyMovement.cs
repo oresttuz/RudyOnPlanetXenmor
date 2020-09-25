@@ -57,13 +57,4 @@ public class EnemyMovement : MonoBehaviour
             }
         }
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (Weapon == null)
-        {
-            return;
-        }
-        Gizmos.DrawWireSphere(Weapon.transform.position, radius);
-    }
 }

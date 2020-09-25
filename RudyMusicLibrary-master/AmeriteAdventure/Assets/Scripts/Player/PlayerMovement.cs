@@ -50,12 +50,25 @@ public class PlayerMovement : MonoBehaviour
         wah2_Instance.WeaponAnimator.SetInteger("Type", weaponTwoAttacks[0]);
     }
 
+    public void UpdatePlayerOnSceneLoad(float sceneHp)
+    {
+        hb_instance.UpdateHpOnSceneLoad(sceneHp);
+    }
+
     // Update is called once per frame
     void Update()
     {
         // Input
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.z = Input.GetAxisRaw("Vertical");
+        if (Input.GetMouseButtonDown(0)) //leftClick
+        {
+            Attack1();
+        }
+        if (Input.GetMouseButtonDown(1)) //rightClick
+        {
+            Dash1();
+        }
     }
 
     private void FixedUpdate()
@@ -100,15 +113,6 @@ public class PlayerMovement : MonoBehaviour
             SecondWeaponCenter.transform.rotation = Quaternion.Euler(new Vector3(0f, angle, 0f));
         }
         
-
-        if (Input.GetMouseButtonDown(0)) //leftClick
-        {
-            Attack1();
-        }
-        if (Input.GetMouseButtonDown(1)) //rightClick
-        {
-            Dash1();
-        }
         if (Input.GetKeyDown(KeyCode.LeftShift)) //toggle Weapon
         {
             whichWeapon *= -1;
@@ -164,16 +168,6 @@ public class PlayerMovement : MonoBehaviour
             dashing = true;
             dash = movement;
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (FirstWeapon == null || SecondWeapon == null)
-        {
-            return;
-        }
-        Gizmos.DrawWireSphere(FirstWeapon.transform.position, attackRange);
-        Gizmos.DrawWireSphere(SecondWeapon.transform.position, attackRange);
     }
 
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)

@@ -209,13 +209,6 @@ public class RoomGeneration : MonoBehaviour
             }
             doorsAndMoreToAdd.wall.AddRange(rooms[v3i.x, v3i.y].FillWalls());
             foreach (Vector3Int wta in doorsAndMoreToAdd.wall) { GameObject wallObj = MakeObj(pfWallCube, v3i, wta, RoomGrouping.transform); }
-            if (v3i == endRoomVec)
-            {
-                GameObject tempExitDoor = Instantiate(pfExit, RoomGrouping.transform);
-                Vector3Int exitTile = rooms[v3i.x, v3i.y].FindFloor();
-                Debug.Log(exitTile);
-                tempExitDoor.transform.localPosition = new Vector3((v3i.x * roomSize.x) + exitTile.x, 0.05f, (v3i.y * roomSize.y) + exitTile.z);
-            }
             GameObject RoomFloor = Instantiate(pfFloorPlane, RoomGrouping.transform);
             RoomFloor.transform.localScale = new Vector3(roomSize.x / 10f, 1f, roomSize.y / 10f);
             RoomFloor.transform.position = new Vector3((v3i.x * roomSize.x) + (roomSize.x / 2), 0f, (v3i.y * roomSize.y) + (roomSize.y / 2));
@@ -493,6 +486,12 @@ public class RoomGeneration : MonoBehaviour
         {
             rooms[xIndex, yIndex].myState = RoomState.Cleared;
             rooms[xIndex, yIndex].UnLockDoors(true, rooms[xIndex, yIndex].Opening);
+            if (rooms[xIndex, yIndex].isABossRoom || new Vector3(xIndex, yIndex, 0) == endRoomVec)
+            {
+                GameObject tempExitDoor = Instantiate(pfExit, rooms[xIndex, yIndex].roomInGame.transform);
+                Vector3Int exitTile = rooms[xIndex, yIndex].FindFloor();
+                tempExitDoor.transform.localPosition = new Vector3((xIndex * roomSize.x) + exitTile.x, 0.05f, (yIndex * roomSize.y) + exitTile.z);
+            }
         }
     }
 
