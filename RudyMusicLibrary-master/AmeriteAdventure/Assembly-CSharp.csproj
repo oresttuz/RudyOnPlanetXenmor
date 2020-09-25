@@ -74,13 +74,13 @@
     <Compile Include="Assets\Scripts\Player\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Player\WeaponAnimationHandler.cs" />
-    <Compile Include="Assets\Scripts\ResetGame.cs" />
     <Compile Include="Assets\Scripts\Room\Room.cs" />
     <Compile Include="Assets\Scripts\Room\RoomGeneration.cs" />
     <Compile Include="Assets\Scripts\Room\RoomManager.cs" />
     <Compile Include="Assets\Scripts\Room\TeleportDoor.cs" />
     <Compile Include="Assets\Scripts\Scene and Data Management\GoToNextLevel.cs" />
     <Compile Include="Assets\Scripts\Scene and Data Management\LevelBrain.cs" />
+    <Compile Include="Assets\Scripts\Scene and Data Management\ResetGame.cs" />
     <Compile Include="Assets\Scripts\Scene and Data Management\SaveSceneData.cs" />
     <Compile Include="Assets\Scripts\Scene and Data Management\SceneData.cs" />
     <Compile Include="Assets\Scripts\UI\ButtonBrains.cs" />

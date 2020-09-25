@@ -457,21 +457,48 @@ public class RoomGeneration : MonoBehaviour
                     Destroy(rooms[RoomX, RoomY].roomInGame.transform.GetChild(rooms[RoomX, RoomY].roomInGame.transform.childCount - 1).GetChild(0).gameObject);
                 }
             }
-            GameObject[] tempEnemies = new GameObject[5];
+            GameObject[] tempEnemies = new GameObject[15];
             if (rooms[RoomX, RoomY].myState == RoomState.Unopened)
             {
-                for (int i = 0; i < 5; ++i)
+                int numEnemiesInRoom = tempEnemies.Length, currEnemies = 0, tries = 0;
+                List<Vector3Int> enemyIsHere = new List<Vector3Int>();
+                while (currEnemies < numEnemiesInRoom)
                 {
-                    Vector3 enemyStartPos = rooms[RoomX, RoomY].FindFloor();
-                    enemyStartPos.x += ((RoomX * roomSize.x) + rgShift.x);
-                    enemyStartPos.z += ((RoomY * roomSize.y) + rgShift.z);
-                    tempEnemies[i] = Instantiate(pfEnemy, enemyStartPos, Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
-                    tempEnemies[i].GetComponent<EnemyMovement>().Player = PlayerObject;
-                    tempEnemies[i].GetComponent<EnemyData>().myX = RoomX;
-                    tempEnemies[i].GetComponent<EnemyData>().myY = RoomY;
-                    tempEnemies[i].GetComponent<EnemyData>().EnemyHB_Instance = Instantiate(pfHB, FindObjectOfType<Canvas>().transform).GetComponent<HealthBar>();
-                    tempEnemies[i].GetComponent<EnemyData>().myIns = this;
-                    tempEnemies[i].SetActive(false);
+                    Vector3Int tempVec3Int = rooms[RoomX, RoomY].FindFloor();
+                    if (!enemyIsHere.Contains(tempVec3Int))
+                    {
+                        Vector3 tempVec3 = new Vector3(((RoomX * roomSize.x) + rgShift.x + tempVec3Int.x), 0.5f, ((RoomY * roomSize.y) + rgShift.z + tempVec3Int.z));
+                        tempEnemies[currEnemies] = Instantiate(pfEnemy, new Vector3(0f, 0f, 0f), Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
+                        tempEnemies[currEnemies].transform.position = tempVec3;
+                        tempEnemies[currEnemies].GetComponent<EnemyMovement>().Player = PlayerObject;
+                        tempEnemies[currEnemies].GetComponent<EnemyData>().myX = RoomX;
+                        tempEnemies[currEnemies].GetComponent<EnemyData>().myY = RoomY;
+                        tempEnemies[currEnemies].GetComponent<EnemyData>().EnemyHB_Instance = Instantiate(pfHB, FindObjectOfType<Canvas>().transform).GetComponent<HealthBar>();
+                        tempEnemies[currEnemies].GetComponent<EnemyData>().myIns = this;
+                        tempEnemies[currEnemies].SetActive(false);
+                        ++currEnemies;
+                        enemyIsHere.Add(tempVec3Int);
+                        tries = 0;
+                    }
+                    else
+                    {
+                        if (tries >= 10)
+                        {
+                            Debug.Log("I tried");
+                            Vector3 tempVec3 = new Vector3(((RoomX * roomSize.x) + rgShift.x + tempVec3Int.x), 0.5f, ((RoomY * roomSize.y) + rgShift.z + tempVec3Int.z));
+                            tempEnemies[currEnemies] = Instantiate(pfEnemy, new Vector3(0f, 0f, 0f), Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
+                            tempEnemies[currEnemies].transform.position = tempVec3;
+                            tempEnemies[currEnemies].GetComponent<EnemyMovement>().Player = PlayerObject;
+                            tempEnemies[currEnemies].GetComponent<EnemyData>().myX = RoomX;
+                            tempEnemies[currEnemies].GetComponent<EnemyData>().myY = RoomY;
+                            tempEnemies[currEnemies].GetComponent<EnemyData>().EnemyHB_Instance = Instantiate(pfHB, FindObjectOfType<Canvas>().transform).GetComponent<HealthBar>();
+                            tempEnemies[currEnemies].GetComponent<EnemyData>().myIns = this;
+                            tempEnemies[currEnemies].SetActive(false);
+                            ++currEnemies;
+                            tries = 0;
+                        }
+                        else { ++tries; }
+                    }
                 }
             }
             rooms[RoomX, RoomY].enableRoom(true, tempEnemies);

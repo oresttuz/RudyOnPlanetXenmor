@@ -764,8 +764,8 @@ public class Room
         bool searching = true;
         while (searching)
         {
-            floorPos.x = rand.Next(RoomGrid.GetLength(0));
-            floorPos.z = rand.Next(RoomGrid.GetLength(1));
+            floorPos.x = rand.Next(0, RoomGrid.GetLength(0));
+            floorPos.z = rand.Next(0, RoomGrid.GetLength(1));
             if (RoomGrid[floorPos.x, floorPos.z] == TileType.floor) { return floorPos; }
         }
         return floorPos;

@@ -18,8 +18,8 @@ public class EnemyData : MonoBehaviour
         dmg = 0.75f;
 
         //Stuff to do with my healthbar
-        EnemyHB_Instance.Init(this.transform.position, this.transform);
-        EnemyHB_Instance.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+        EnemyHB_Instance.Init(Mathf.FloorToInt(health), this.transform.position, this.transform);
+        EnemyHB_Instance.transform.localScale = new Vector3(0.3f, 0.3f, 1f);
     }
 
     private void FixedUpdate()

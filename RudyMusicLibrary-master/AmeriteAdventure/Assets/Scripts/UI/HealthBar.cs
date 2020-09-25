@@ -17,24 +17,6 @@ public class HealthBar : MonoBehaviour
 
     public HeartObject pfHeart;
 
-    /*
-    private void Start()
-    {
-        startPos = new Vector3(35f, -30f, 0f);
-
-        health = new List<HeartObject>();
-        int startingHealth = totalHealth;
-        for (int i = 0; i < startingHealth; i++)
-        {
-            AddHealth();
-        }
-
-        //reset just for start function
-        totalHealth = startingHealth;
-        currHealth = (totalHealth * 1f);
-    }
-    */
-
     public void Init()
     {
         health = new List<HeartObject>();
@@ -50,10 +32,10 @@ public class HealthBar : MonoBehaviour
         currHealth = (totalHealth * 1f);
     }
 
-    public void Init(Vector3 whereImAt, Transform TransformToFollow)
+    public void Init(int initHp, Vector3 whereImAt, Transform TransformToFollow)
     {
         health = new List<HeartObject>();
-        int startingHealth = totalHealth;
+        int startingHealth = initHp;
         for (int i = 0; i < startingHealth; i++)
         {
             AddHealth();
