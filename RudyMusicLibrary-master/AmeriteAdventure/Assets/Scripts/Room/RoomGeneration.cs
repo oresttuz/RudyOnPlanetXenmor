@@ -16,11 +16,13 @@ public class RoomGeneration : MonoBehaviour
         return instance;
     }
 
-    public GameObject PlayerObject, pfRoomGroup, pfFloorPlane, pfWallCube, pfDoorCube, pfEnemy, pfHB, pfExit;
+    public GameObject PlayerObject, pfRoomGroup, pfFloorPlane, pfWallCube, pfDoorCube, pfEnemy, pfHB, pfExit, pfLight;
     public string myRGID;
     public Vector3Int startRoomVec = new Vector3Int(-1,-1,-1), endRoomVec = new Vector3Int(-1, -1, -1);
     public Room roomToConnectTo;
     public Vector3 rgShift;
+
+    public Material[] materials;
 
     private bool created;
     private Vector3Int gridSize;
@@ -207,8 +209,22 @@ public class RoomGeneration : MonoBehaviour
                     tempLeftDoor.name = "Left";
                 }
             }
-            doorsAndMoreToAdd.wall.AddRange(rooms[v3i.x, v3i.y].FillWalls());
-            foreach (Vector3Int wta in doorsAndMoreToAdd.wall) { GameObject wallObj = MakeObj(pfWallCube, v3i, wta, RoomGrouping.transform); }
+            List<Vector3Int> fillWalls = rooms[v3i.x, v3i.y].FillWalls();
+            foreach (Vector3Int wta in doorsAndMoreToAdd.wall)
+            {
+                GameObject wallObj = MakeObj(pfWallCube, v3i, wta, RoomGrouping.transform);
+                if (Random.Range(0, 1f) < 0.1f)
+                {
+                    GameObject tempLight = Instantiate(pfLight, wallObj.transform);
+                    tempLight.transform.localPosition = new Vector3(0f, 0.55f, 0f);
+                }
+            }
+            foreach (Vector3Int fwta in fillWalls)
+            {
+                Debug.Log("Filled");
+                GameObject wallObj = MakeObj(pfWallCube, v3i, fwta, RoomGrouping.transform);
+                wallObj.GetComponent<MeshRenderer>().material = materials[0];
+            }
             GameObject RoomFloor = Instantiate(pfFloorPlane, RoomGrouping.transform);
             RoomFloor.transform.localScale = new Vector3(roomSize.x / 10f, 1f, roomSize.y / 10f);
             RoomFloor.transform.position = new Vector3((v3i.x * roomSize.x) + (roomSize.x / 2), 0f, (v3i.y * roomSize.y) + (roomSize.y / 2));

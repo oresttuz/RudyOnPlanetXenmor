@@ -11,7 +11,8 @@ public class GoToNextLevel : MonoBehaviour
         if (other.name == "Player(Clone)")
         {
             FindObjectOfType<LevelBrain>().EndLevel();
-            SceneManager.LoadScene("BossScene");
+            if (SceneManager.GetActiveScene().name == "Main") { SceneManager.LoadScene("BossScene"); }
+            else if (SceneManager.GetActiveScene().name == "BossScene") { SceneManager.LoadScene("Main"); }
         }
     }
 }
