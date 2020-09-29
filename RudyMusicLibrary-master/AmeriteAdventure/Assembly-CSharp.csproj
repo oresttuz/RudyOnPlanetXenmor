@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AudioManager.cs" />
     <Compile Include="Assets\NavMeshComponents\Scripts\NavMeshLink.cs" />
     <Compile Include="Assets\NavMeshComponents\Scripts\NavMeshModifier.cs" />
     <Compile Include="Assets\NavMeshComponents\Scripts\NavMeshModifierVolume.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Assets\Scripts\Scene and Data Management\ResetGame.cs" />
     <Compile Include="Assets\Scripts\Scene and Data Management\SaveSceneData.cs" />
     <Compile Include="Assets\Scripts\Scene and Data Management\SceneData.cs" />
+    <Compile Include="Assets\Scripts\Sound.cs" />
     <Compile Include="Assets\Scripts\UI\ButtonBrains.cs" />
     <Compile Include="Assets\Scripts\UI\HealthBar.cs" />
     <Compile Include="Assets\Scripts\UI\HeartObject.cs" />
@@ -150,6 +152,9 @@
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>D:/Ball Game/RudysTripToTheCenter/RudyMusicLibrary-master/AmeriteAdventure/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Postprocessing.Editor">
+      <HintPath>D:/Ball Game/RudysTripToTheCenter/RudyMusicLibrary-master/AmeriteAdventure/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>D:/Ball Game/RudysTripToTheCenter/RudyMusicLibrary-master/AmeriteAdventure/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
@@ -167,6 +172,9 @@
     </Reference>
     <Reference Include="Unity.2D.Common.Runtime">
       <HintPath>D:/Ball Game/RudysTripToTheCenter/RudyMusicLibrary-master/AmeriteAdventure/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Postprocessing.Runtime">
+      <HintPath>D:/Ball Game/RudysTripToTheCenter/RudyMusicLibrary-master/AmeriteAdventure/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
       <HintPath>D:/Ball Game/RudysTripToTheCenter/RudyMusicLibrary-master/AmeriteAdventure/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
@@ -197,12 +205,6 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>D:/Ball Game/RudysTripToTheCenter/RudyMusicLibrary-master/AmeriteAdventure/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Postprocessing.Editor">
-      <HintPath>D:/Ball Game/RudysTripToTheCenter/RudyMusicLibrary-master/AmeriteAdventure/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>D:/Ball Game/RudysTripToTheCenter/RudyMusicLibrary-master/AmeriteAdventure/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.17f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

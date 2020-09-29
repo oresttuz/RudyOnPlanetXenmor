@@ -13,12 +13,14 @@ public class RoomManager : MonoBehaviour
     public RoomGeneration[] generation_Instances;
     public bool isBossRoom;
 
+    public List<string> songTitles;
+
     //variables not accessible in inspector
     private List<Room[,]> allLevelRooms;
     //private List<RoomNode> RoomGraph;
     private Vector3Int startRoomPos;
 
-    private void Awake()
+    private void Start()
     {
         if (isBossRoom)
         {
@@ -41,6 +43,7 @@ public class RoomManager : MonoBehaviour
             initRoomPositionsOf0.Add(startRoomPos);
             Vector3Int[] vectsToExportof0 = { startRoomPos, new Vector3Int(1, 1, 0), roomSize };
             generation_Instances[0].myRGID = IDof0;
+            generation_Instances[0].songNameTitles = songTitles;
             generation_Instances[0].startRoomVec = startRoomPos;
             generation_Instances[0].rgShift = startRoomPos;
             generation_Instances[0].RoomGenerationData(allLevelRooms[0], vectsToExportof0, generation_Instances[0].GetComponent<Grid>(), numRoomsInLevel, tiles, initRoomPositionsOf0, IDof0);
@@ -130,6 +133,7 @@ public class RoomManager : MonoBehaviour
 
                 Vector3Int[] vectsToExport = { startRoomPos, numRoomsInDimension, roomSize };
                 generation_Instances[numInstance].myRGID = ID;
+                
                 generation_Instances[numInstance].RoomGenerationData(allLevelRooms[numInstance], vectsToExport, generation_Instances[numInstance].GetComponent<Grid>(), numRoomsInLevel, tiles, initRoomPositions, ID);
                 generation_Instances[numInstance].PlayerObject = Player;
                 generation_Instances[numInstance].roomToConnectTo = allLevelRooms[0][0, 0];

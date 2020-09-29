@@ -18,6 +18,7 @@ public class RoomGeneration : MonoBehaviour
 
     public GameObject PlayerObject, pfRoomGroup, pfFloorPlane, pfWallCube, pfDoorCube, pfEnemy, pfHB, pfExit, pfLight;
     public string myRGID;
+    public List<string> songNameTitles;
     public Vector3Int startRoomVec = new Vector3Int(-1,-1,-1), endRoomVec = new Vector3Int(-1, -1, -1);
     public Room roomToConnectTo;
     public Vector3 rgShift;
@@ -191,7 +192,7 @@ public class RoomGeneration : MonoBehaviour
                 {
                     GameObject tempRightDoor = MakeObj(pfDoorCube, v3i, rooms[v3i.x, v3i.y].doors[1].SouthWestPos, RoomGrouping.transform);
                     tempRightDoor.transform.position =
-                        new Vector3(tempRightDoor.transform.position.x - (0.5f), tempRightDoor.transform.position.y, tempRightDoor.transform.position.z + (0.5f));
+                        new Vector3(tempRightDoor.transform.position.x - (0.5f * 2f), tempRightDoor.transform.position.y, tempRightDoor.transform.position.z + (0.5f * 2f));
                     tempRightDoor.transform.Rotate(new Vector3(0f, 90f, 0f));
                     tempRightDoor.name = "Right";
                 }
@@ -204,7 +205,7 @@ public class RoomGeneration : MonoBehaviour
                 {
                     GameObject tempLeftDoor = MakeObj(pfDoorCube, v3i, rooms[v3i.x, v3i.y].doors[3].SouthWestPos, RoomGrouping.transform);
                     tempLeftDoor.transform.position = 
-                        new Vector3(tempLeftDoor.transform.position.x - (0.5f) , tempLeftDoor.transform.position.y, tempLeftDoor.transform.position.z + (0.5f));
+                        new Vector3(tempLeftDoor.transform.position.x - (0.5f * 2f) , tempLeftDoor.transform.position.y, tempLeftDoor.transform.position.z + (0.5f * 2f));
                     tempLeftDoor.transform.Rotate(new Vector3(0f, 90f, 0f));
                     tempLeftDoor.name = "Left";
                 }
@@ -221,13 +222,12 @@ public class RoomGeneration : MonoBehaviour
             }
             foreach (Vector3Int fwta in fillWalls)
             {
-                Debug.Log("Filled");
                 GameObject wallObj = MakeObj(pfWallCube, v3i, fwta, RoomGrouping.transform);
                 wallObj.GetComponent<MeshRenderer>().material = materials[0];
             }
             GameObject RoomFloor = Instantiate(pfFloorPlane, RoomGrouping.transform);
-            RoomFloor.transform.localScale = new Vector3(roomSize.x / 10f, 1f, roomSize.y / 10f);
-            RoomFloor.transform.position = new Vector3((v3i.x * roomSize.x) + (roomSize.x / 2), 0f, (v3i.y * roomSize.y) + (roomSize.y / 2));
+            RoomFloor.transform.localScale = new Vector3(roomSize.x / (10f), 1f, roomSize.y / 10f);
+            RoomFloor.transform.position = new Vector3(((v3i.x * roomSize.x) + (roomSize.x / 2)) * 2f, 0f, ((v3i.y * roomSize.y) + (roomSize.y / 2)) * 2f);
             RoomFloor.GetComponent<NavMeshSurface>().BuildNavMesh();
             rooms[v3i.x, v3i.y].roomInGame = RoomGrouping;
         }
@@ -261,6 +261,7 @@ public class RoomGeneration : MonoBehaviour
                         .Init(this, riVector.x, riVector.y, 0, 0, roomToConnectTo.roomInGame.transform.GetChild(0).gameObject, new Vector3(-2f, 0f, 0f));
                         rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(teleportDoorIndex).GetComponent<TeleportDoor>().myOtherParent = GetComponentInParent<RoomManager>().generation_Instances[0];
                         rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(teleportDoorIndex).GetComponent<TeleportDoor>().startDoor = 3;
+                        rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(teleportDoorIndex).GetComponent<TeleportDoor>().themeToPlay = "MainMenu Theme";
                         thisDoorWasMade = rooms[riVector.x, riVector.y].DirectionToInt(rooms[riVector.x, riVector.y].DirectionToStart);
                         Debug.Log(myRGID + ", this door: " + thisDoorWasMade);
                     }
@@ -276,6 +277,7 @@ public class RoomGeneration : MonoBehaviour
                         .Init(this, riVector.x, riVector.y, 0, 0, roomToConnectTo.roomInGame.transform.GetChild(1).gameObject, new Vector3(2f, 0f, 0f));
                         rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(teleportDoorIndex).GetComponent<TeleportDoor>().myOtherParent = GetComponentInParent<RoomManager>().generation_Instances[0];
                         rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(teleportDoorIndex).GetComponent<TeleportDoor>().startDoor = 4;
+                        rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(teleportDoorIndex).GetComponent<TeleportDoor>().themeToPlay = "MainMenu Theme";
                         thisDoorWasMade = rooms[riVector.x, riVector.y].DirectionToInt(rooms[riVector.x, riVector.y].DirectionToStart);
                         Debug.Log(myRGID + ", this door: " + thisDoorWasMade);
                     }
@@ -398,6 +400,7 @@ public class RoomGeneration : MonoBehaviour
                 .Init(this, startRoomVec.x, startRoomVec.y, first.x, first.y, GetComponentInParent<RoomManager>().generation_Instances[1].rooms[first.x, first.y].roomInGame.transform.GetChild(firstDoor).gameObject, firstShift);
             rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(1).GetComponent<TeleportDoor>().myOtherParent = GetComponentInParent<RoomManager>().generation_Instances[1];
             rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(1).GetComponent<TeleportDoor>().startDoor = 1;
+            rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(1).GetComponent<TeleportDoor>().themeToPlay = songNameTitles[1];
             //Second
             second = GetComponentInParent<RoomManager>().generation_Instances[2].startRoomVec;
             secondShiftId = GetComponentInParent<RoomManager>().generation_Instances[2].rooms[second.x, second.y].DirectionToInt(GetComponentInParent<RoomManager>().generation_Instances[2].rooms[second.x, second.y].DirectionToStart);
@@ -435,6 +438,7 @@ public class RoomGeneration : MonoBehaviour
                 .Init(this, startRoomVec.x, startRoomVec.y, second.x, second.y, GetComponentInParent<RoomManager>().generation_Instances[2].rooms[second.x, second.y].roomInGame.transform.GetChild(secondDoor).gameObject, secondShift);
             rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(0).GetComponent<TeleportDoor>().myOtherParent = GetComponentInParent<RoomManager>().generation_Instances[2];
             rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(0).GetComponent<TeleportDoor>().startDoor = 2;
+            rooms[startRoomVec.x, startRoomVec.y].roomInGame.transform.GetChild(0).GetComponent<TeleportDoor>().themeToPlay = songNameTitles[0];
         }
     }
 
@@ -450,7 +454,7 @@ public class RoomGeneration : MonoBehaviour
                 {
                     Vector3 roomTilePos = rooms[xCord, zCord].FindFloor();
                     PlayerObject.transform.position =
-                        new Vector3(((xCord * roomSize.x) + roomTilePos.x + (PlayerObject.transform.localScale.x / 2)), 0.99f, ((zCord * roomSize.y) + roomTilePos.z + (PlayerObject.transform.localScale.z / 2)));
+                        new Vector3(((xCord * roomSize.x) + roomTilePos.x + (PlayerObject.transform.localScale.x / 2)) * 2f, 0.99f, ((zCord * roomSize.y) + roomTilePos.z + (PlayerObject.transform.localScale.z / 2)) * 2f);
                     rooms[xCord, zCord].roomInGame.transform.GetChild(rooms[xCord, zCord].roomInGame.transform.childCount - 1).GetChild(0).gameObject.SetActive(false);
                     PlayerIsLost = false;
                     rooms[xCord, zCord].myState = RoomState.Cleared;
@@ -473,19 +477,22 @@ public class RoomGeneration : MonoBehaviour
                     Destroy(rooms[RoomX, RoomY].roomInGame.transform.GetChild(rooms[RoomX, RoomY].roomInGame.transform.childCount - 1).GetChild(0).gameObject);
                 }
             }
-            GameObject[] tempEnemies = new GameObject[15];
+            GameObject[] tempEnemies = new GameObject[5];
             if (rooms[RoomX, RoomY].myState == RoomState.Unopened)
             {
                 int numEnemiesInRoom = tempEnemies.Length, currEnemies = 0, tries = 0;
-                List<Vector3Int> enemyIsHere = new List<Vector3Int>();
+                List<Vector3> enemyIsHere = new List<Vector3>();
                 while (currEnemies < numEnemiesInRoom)
                 {
-                    Vector3Int tempVec3Int = rooms[RoomX, RoomY].FindFloor();
-                    if (!enemyIsHere.Contains(tempVec3Int))
+                    Vector3 tempVec3 = rooms[RoomX, RoomY].FindFloor();
+                    if (!enemyIsHere.Contains(tempVec3))
                     {
-                        Vector3 tempVec3 = new Vector3(((RoomX * roomSize.x) + rgShift.x + tempVec3Int.x), 0.5f, ((RoomY * roomSize.y) + rgShift.z + tempVec3Int.z));
-                        tempEnemies[currEnemies] = Instantiate(pfEnemy, new Vector3(0f, 0f, 0f), Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
-                        tempEnemies[currEnemies].transform.position = tempVec3;
+                        Vector3 tempVec32 = new Vector3((RoomX * roomSize.x * 2f) + rgShift.x + (tempVec3.x * 2f), 0.5f, (RoomY * roomSize.y * 2f) + rgShift.z + (tempVec3.z * 2f));
+                        tempEnemies[currEnemies] = Instantiate(pfEnemy, tempVec32, Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
+                        //tempEnemies[currEnemies].transform.position = tempVec32;
+                        Debug.Log(tempEnemies[currEnemies].transform.position);
+                        tempEnemies[currEnemies].transform.localScale 
+                            = new Vector3(0.5f * tempEnemies[currEnemies].transform.localScale.x, tempEnemies[currEnemies].transform.localScale.y, 0.5f * tempEnemies[currEnemies].transform.localScale.z);
                         tempEnemies[currEnemies].GetComponent<EnemyMovement>().Player = PlayerObject;
                         tempEnemies[currEnemies].GetComponent<EnemyData>().myX = RoomX;
                         tempEnemies[currEnemies].GetComponent<EnemyData>().myY = RoomY;
@@ -493,17 +500,20 @@ public class RoomGeneration : MonoBehaviour
                         tempEnemies[currEnemies].GetComponent<EnemyData>().myIns = this;
                         tempEnemies[currEnemies].SetActive(false);
                         ++currEnemies;
-                        enemyIsHere.Add(tempVec3Int);
+                        enemyIsHere.Add(tempVec3);
                         tries = 0;
                     }
                     else
                     {
-                        if (tries >= 10)
+                        if (tries >= 20)
                         {
-                            Debug.Log("I tried");
-                            Vector3 tempVec3 = new Vector3(((RoomX * roomSize.x) + rgShift.x + tempVec3Int.x), 0.5f, ((RoomY * roomSize.y) + rgShift.z + tempVec3Int.z));
-                            tempEnemies[currEnemies] = Instantiate(pfEnemy, new Vector3(0f, 0f, 0f), Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
-                            tempEnemies[currEnemies].transform.position = tempVec3;
+                            //Debug.Log("I tried");
+                            Vector3 tempVec32 = new Vector3((RoomX * roomSize.x * 2f) + rgShift.x + (tempVec3.x * 2f), 0.5f, (RoomY * roomSize.y * 2f) + rgShift.z + (tempVec3.z * 2f) );
+                            tempEnemies[currEnemies] = Instantiate(pfEnemy, tempVec32, Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
+                            //tempEnemies[currEnemies].transform.position = tempVec32;
+                            Debug.Log(tempEnemies[currEnemies].transform.position);
+                            tempEnemies[currEnemies].transform.localScale
+                                = new Vector3(0.5f * tempEnemies[currEnemies].transform.localScale.x, tempEnemies[currEnemies].transform.localScale.y, 0.5f * tempEnemies[currEnemies].transform.localScale.z);
                             tempEnemies[currEnemies].GetComponent<EnemyMovement>().Player = PlayerObject;
                             tempEnemies[currEnemies].GetComponent<EnemyData>().myX = RoomX;
                             tempEnemies[currEnemies].GetComponent<EnemyData>().myY = RoomY;

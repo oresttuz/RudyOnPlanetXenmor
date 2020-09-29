@@ -13,6 +13,10 @@ public class WeaponAnimationHandler : MonoBehaviour
 
     public void AnimationEnded()
     {
+        if (grandParentString == "Player")
+        {
+            GetComponentInParent<PlayerMovement>().attacking = false;
+        }
         WeaponAnimator.SetBool("Attacking", false);
         WeaponAnimator.SetInteger("Type", nextType);
     }

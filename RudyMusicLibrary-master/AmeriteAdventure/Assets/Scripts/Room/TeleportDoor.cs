@@ -11,6 +11,8 @@ public class TeleportDoor : MonoBehaviour
     public Vector3 shiftInFrontOfDoorVec;
     public bool isLocked;
 
+    public string themeToPlay;
+
     public void Init(RoomGeneration ins, int thisX, int thisY, int thatX, int thatY, GameObject door, Vector3 shift)
     {
         myParentInstance = ins;
@@ -41,6 +43,7 @@ public class TeleportDoor : MonoBehaviour
                     myParentInstance.EnableRooms(theirX, theirY, true);
                 }
                 collision.collider.gameObject.transform.position = DoorToTeleportTo.transform.position + shiftInFrontOfDoorVec;
+                FindObjectOfType<AudioManager>().Play(themeToPlay);
             }
         }
     }

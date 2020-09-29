@@ -12,17 +12,18 @@ public class PlayerMovement : MonoBehaviour
     
     //editable variables to analyze runtime
     public LayerMask enemyLayers, hurtsMe;
-    public float attackRange, moveSpeed = 5f, dashSpeed = 10f, dashDuration = 5.0f;
+    public float attackRange, moveSpeed, dashSpeed, dashDuration;
     public List<int> weaponOneAttacks, weaponTwoAttacks;
-    
 
+    public bool dashing = false, attacking = false;
     //variables specific to this instance
     private WeaponAnimationHandler wah1_Instance, wah2_Instance;
-    private bool dashing = false;
+    
     private float dashCount = 0.0f;
     private int whichWeapon = -1; //-1 = first, 1 = second
     private Vector3 movement, dash;
     private int w1AttackIndex = 0, w2AttackIndex = 0;
+    private Vector2 origin = new Vector2(0f, 0f);
 
     private void Start()
     {
@@ -56,42 +57,42 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // Input
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.z = Input.GetAxisRaw("Vertical");
         if (Input.GetMouseButtonDown(0)) //leftClick
         {
-            Attack1();
+            if (!dashing && !attacking) { Attack1(); }
         }
         if (Input.GetMouseButtonDown(1)) //rightClick
         {
-            Dash1();
+            if (!dashing && !attacking) { Dash1(); }
         }
-    }
-
-    private void FixedUpdate()
-    {
         if (dashing)
         {
-            rb.MovePosition(rb.position + dash * dashSpeed * Time.fixedDeltaTime);
             if (dashCount >= dashDuration)
             {
                 dashCount = 0.0f;
                 dashing = false;
                 dash = new Vector3(0f, 0f, 0f);
+                rb.velocity = dash;
             }
             else
             {
-                dashCount++;
+                dashCount += Time.deltaTime;
             }
         }
         else
         {
-            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+            rb.MovePosition(rb.position + (movement * moveSpeed * Time.deltaTime));
         }
+    }
 
+    private void FixedUpdate()
+    {
+        if (attacking) { return; }
         //Get the Screen positions of the object
         Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
 
@@ -104,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
         //Ta Daaa
         if (whichWeapon < 0)
         {
+            
             FirstWeaponCenter.transform.rotation = Quaternion.Euler(new Vector3(0f, angle, 0f));
             SecondWeaponCenter.transform.rotation = Quaternion.Euler(new Vector3(0f, SecondWeaponCenter.transform.rotation.eulerAngles.y + 0.5f, 0f));
         }
@@ -139,6 +141,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Attack1()
     {
+        attacking = true;
         if (whichWeapon < 0)
         {
             w1AttackIndex = NextAttackAnimation(wah1_Instance, weaponOneAttacks, w1AttackIndex);
@@ -167,6 +170,7 @@ public class PlayerMovement : MonoBehaviour
         {
             dashing = true;
             dash = movement;
+            rb.velocity = dash * dashSpeed; //* Time.deltaTime
         }
     }
 
@@ -188,6 +192,13 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+    }
+
+    public bool AreThereEnemiesAroundMe()
+    {
+        Collider[] enemyColliders = Physics.OverlapBox(transform.position, new Vector3(10f, 0.2f, 10f), Quaternion.identity, enemyLayers);
+        if (enemyColliders.Length > 0) { return true; }
+        return false;
     }
 
 }

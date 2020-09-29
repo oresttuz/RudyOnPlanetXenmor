@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class ButtonBrains : MonoBehaviour
 {
-    public GameObject ResetObject;
+    public GameObject ResetObject, AudioManager;
 
     public void BeginGame()
     {
         SceneManager.LoadScene("Main");
         DontDestroyOnLoad(ResetObject);
+        DontDestroyOnLoad(AudioManager);
     }
 
     public void ExitGame()

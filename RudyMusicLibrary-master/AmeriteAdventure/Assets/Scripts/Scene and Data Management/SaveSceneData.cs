@@ -12,6 +12,8 @@ public class SaveSceneData : MonoBehaviour
     public float currHp;
     public int currSceneNum;
 
+    public string[] elementTypes;
+
     private void Start()
     {
         RefToLevelBrain = GetComponentInParent<LevelBrain>();
@@ -60,7 +62,7 @@ public class SaveSceneData : MonoBehaviour
         else { file = File.Create(destination); }
 
         SceneData data = new SceneData(4f);
-        Debug.Log("Save Hp: " + data.hp);
+        //Debug.Log("Save Hp: " + data.hp);
         BinaryFormatter bf = new BinaryFormatter();
         bf.Serialize(file, data);
         file.Close();
@@ -98,6 +100,7 @@ public class SaveSceneData : MonoBehaviour
         Debug.Log("CurrSceneNum: " + data.SceneNum);
         currHp = data.hp;
         currSceneNum = data.SceneNum;
+        elementTypes = data.elemTypes;
         return true;
     }
 }
