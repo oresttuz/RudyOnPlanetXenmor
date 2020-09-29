@@ -16,7 +16,8 @@ public class RoomGeneration : MonoBehaviour
         return instance;
     }
 
-    public GameObject PlayerObject, pfRoomGroup, pfFloorPlane, pfWallCube, pfDoorCube, pfEnemy, pfHB, pfExit, pfLight;
+    public GameObject PlayerObject, pfRoomGroup, pfFloorPlane, pfWallCube, pfDoorCube, pfHB, pfExit, pfLight;
+    public GameObject[] pfEnemies;
     public string myRGID;
     public List<string> songNameTitles;
     public Vector3Int startRoomVec = new Vector3Int(-1,-1,-1), endRoomVec = new Vector3Int(-1, -1, -1);
@@ -485,10 +486,11 @@ public class RoomGeneration : MonoBehaviour
                 while (currEnemies < numEnemiesInRoom)
                 {
                     Vector3 tempVec3 = rooms[RoomX, RoomY].FindFloor();
+                    int indexOfpfEnemy = Mathf.FloorToInt(Random.Range(0f, pfEnemies.Length - 0.01f));
                     if (!enemyIsHere.Contains(tempVec3))
                     {
                         Vector3 tempVec32 = new Vector3((RoomX * roomSize.x * 2f) + rgShift.x + (tempVec3.x * 2f), 0.5f, (RoomY * roomSize.y * 2f) + rgShift.z + (tempVec3.z * 2f));
-                        tempEnemies[currEnemies] = Instantiate(pfEnemy, tempVec32, Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
+                        tempEnemies[currEnemies] = Instantiate(pfEnemies[indexOfpfEnemy], tempVec32, Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
                         //tempEnemies[currEnemies].transform.position = tempVec32;
                         Debug.Log(tempEnemies[currEnemies].transform.position);
                         tempEnemies[currEnemies].transform.localScale 
@@ -509,7 +511,7 @@ public class RoomGeneration : MonoBehaviour
                         {
                             //Debug.Log("I tried");
                             Vector3 tempVec32 = new Vector3((RoomX * roomSize.x * 2f) + rgShift.x + (tempVec3.x * 2f), 0.5f, (RoomY * roomSize.y * 2f) + rgShift.z + (tempVec3.z * 2f) );
-                            tempEnemies[currEnemies] = Instantiate(pfEnemy, tempVec32, Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
+                            tempEnemies[currEnemies] = Instantiate(pfEnemies[indexOfpfEnemy], tempVec32, Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
                             //tempEnemies[currEnemies].transform.position = tempVec32;
                             Debug.Log(tempEnemies[currEnemies].transform.position);
                             tempEnemies[currEnemies].transform.localScale
@@ -544,6 +546,9 @@ public class RoomGeneration : MonoBehaviour
                 GameObject tempExitDoor = Instantiate(pfExit, rooms[xIndex, yIndex].roomInGame.transform);
                 Vector3Int exitTile = rooms[xIndex, yIndex].FindFloor();
                 tempExitDoor.transform.localPosition = new Vector3((xIndex * roomSize.x) + exitTile.x, 0.05f, (yIndex * roomSize.y) + exitTile.z);
+                PlayerObject.transform.GetChild(3).gameObject.SetActive(true);
+                PlayerObject.transform.GetComponentInChildren<PointTowardsExit>().exitDoorTransform = tempExitDoor.transform;
+                PlayerObject.transform.GetComponentInChildren<PointTowardsExit>().playerTransform = PlayerObject.transform;
             }
         }
     }

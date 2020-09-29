@@ -5,10 +5,14 @@ using Cinemachine;
 
 public class LevelBrain : MonoBehaviour
 {
-    public GameObject pfSaveSceneData, pfPlayer, pfCanvas,
-               RefToRoomManager,
-               levelPlayer, levelCanvas;
+    public GameObject pfSaveSceneData, pfPlayer, pfCanvas;
+
+    [HideInInspector]
+    public GameObject RefToRoomManager, levelPlayer, levelCanvas;
+    
+    [HideInInspector]
     public CinemachineVirtualCamera RefToCineCam;
+
     private SaveSceneData levelData;
     private PlayerMovement refToPlayerMovement;
     private bool ZoomedIn, ZoomingIn, ZoomingOut;

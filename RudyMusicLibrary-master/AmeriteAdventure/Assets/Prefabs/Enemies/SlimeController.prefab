@@ -76,9 +76,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 996d9208e847aec4490600f1e888b8da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myIns: {fileID: 0}
+  EnemyHB_Instance: {fileID: 0}
   health: 5
   dmg: 0
   hasDmgAnimation: 1
+  myX: 0
+  myY: 0
 --- !u!1 &3119540472411088338
 GameObject:
   m_ObjectHideFlags: 0
