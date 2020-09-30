@@ -197,6 +197,17 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
+    public void AddAttack(int attackNum)
+    {
+        if (whichWeapon < 0)
+        {
+            weaponOneAttacks.Add(attackNum);
+        }
+        else
+        {
+            weaponTwoAttacks.Add(attackNum);
+        }
+    }
 }
 
 public class Technique

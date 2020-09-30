@@ -687,7 +687,7 @@ MonoBehaviour:
   moveSpeed: 5
   dashSpeed: 20
   dashDuration: 0.25
-  weaponOneAttacks: 00000000020000000100000003000000
-  weaponTwoAttacks: 02000000030000000200000003000000
+  weaponOneAttacks: 00000000
+  weaponTwoAttacks: 02000000
   dashing: 0
   attacking: 0

@@ -272,6 +272,7 @@ MonoBehaviour:
   pfHB: {fileID: 7666605178362791742, guid: 208c073669ac6484188acb8f61ea7243, type: 3}
   pfExit: {fileID: 5147953153772018124, guid: ee5240db54ef03c4ebb32023394270fa, type: 3}
   pfLight: {fileID: 3912754967831919237, guid: c6bcaaeee429d27409e260d02c83ddc7, type: 3}
+  pfBook: {fileID: 8362313953931513491, guid: 2f1644a0dfad4384a81d3d158a7e26e8, type: 3}
   pfEnemies:
   - {fileID: 3150227168600565355, guid: 986d90454727c5e4ab98946064c810ef, type: 3}
   - {fileID: 3150227168600565355, guid: 986d90454727c5e4ab98946064c810ef, type: 3}
@@ -284,6 +285,11 @@ MonoBehaviour:
   rgShift: {x: 0, y: 0, z: 0}
   materials:
   - {fileID: 2100000, guid: 96b88afaf397d5541bdda64bcb345156, type: 2}
+  bookSprites:
+  - {fileID: -5130267182695972985, guid: 2c6c834d9e46e384790db4c51b08dd3d, type: 3}
+  - {fileID: 5418371545923641343, guid: 2c6c834d9e46e384790db4c51b08dd3d, type: 3}
+  - {fileID: 7224428788446768214, guid: 2c6c834d9e46e384790db4c51b08dd3d, type: 3}
+  - {fileID: 1965232858015601868, guid: 2c6c834d9e46e384790db4c51b08dd3d, type: 3}
 --- !u!1 &6563317465365668126
 GameObject:
   m_ObjectHideFlags: 0

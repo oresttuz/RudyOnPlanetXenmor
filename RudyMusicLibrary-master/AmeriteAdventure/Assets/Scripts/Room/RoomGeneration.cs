@@ -16,7 +16,7 @@ public class RoomGeneration : MonoBehaviour
         return instance;
     }
 
-    public GameObject PlayerObject, pfRoomGroup, pfFloorPlane, pfWallCube, pfDoorCube, pfHB, pfExit, pfLight;
+    public GameObject PlayerObject, pfRoomGroup, pfFloorPlane, pfWallCube, pfDoorCube, pfHB, pfExit, pfLight, pfBook;
     public GameObject[] pfEnemies;
     public string myRGID;
     public List<string> songNameTitles;
@@ -25,6 +25,7 @@ public class RoomGeneration : MonoBehaviour
     public Vector3 rgShift;
 
     public Material[] materials;
+    public Sprite[] bookSprites;
 
     private bool created;
     private Vector3Int gridSize;
@@ -541,6 +542,7 @@ public class RoomGeneration : MonoBehaviour
         {
             rooms[xIndex, yIndex].myState = RoomState.Cleared;
             rooms[xIndex, yIndex].UnLockDoors(true, rooms[xIndex, yIndex].Opening);
+
             if (rooms[xIndex, yIndex].isABossRoom || new Vector3(xIndex, yIndex, 0) == endRoomVec)
             {
                 GameObject tempExitDoor = Instantiate(pfExit, rooms[xIndex, yIndex].roomInGame.transform);
@@ -550,6 +552,7 @@ public class RoomGeneration : MonoBehaviour
                 PlayerObject.transform.GetComponentInChildren<PointTowardsExit>().exitDoorTransform = tempExitDoor.transform;
                 PlayerObject.transform.GetComponentInChildren<PointTowardsExit>().playerTransform = PlayerObject.transform;
             }
+            else { SpawnBook(xIndex, yIndex); }
         }
     }
 
@@ -561,6 +564,16 @@ public class RoomGeneration : MonoBehaviour
             scaledVects.Add(new Vector3Int(((scale.x * roomSize.x) + v.x), ((scale.y * roomSize.y) + v.y), 0));
         }
         return scaledVects;
+    }
+
+    public void SpawnBook(int xIndex, int yIndex)
+    {
+        GameObject tempBook = Instantiate(pfBook, rooms[xIndex, yIndex].roomInGame.transform);
+        Vector3Int bookTile = rooms[xIndex, yIndex].FindFloor();
+        tempBook.transform.localPosition = new Vector3((xIndex * roomSize.x) + bookTile.x, 0f, (yIndex * roomSize.y) + bookTile.z);
+        tempBook.transform.localScale = new Vector3(0.5f, 1f, 0.5f);
+        int indexForBook = Mathf.FloorToInt(Random.Range(0f, bookSprites.Length - 0.01f));
+        tempBook.GetComponent<Book>().UpdateBook(bookSprites[indexForBook], indexForBook);
     }
 }
 
