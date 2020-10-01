@@ -178,6 +178,21 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void RemoveWeapon()
+    {
+        if (weapons.Count < 2 || whichWeapon < 0)
+        {
+            weapons.RemoveAt(0);
+            wah1_Instance = null;
+        }
+        else
+        {
+            weapons.RemoveAt(1);
+            wah2_Instance = null;
+            whichWeapon *= -1;
+        }
+    }
+
     public void Attack1()
     {
         attacking = true;
