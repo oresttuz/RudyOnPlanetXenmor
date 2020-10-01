@@ -11,6 +11,7 @@ public class SaveSceneData : MonoBehaviour
 
     public float currHp;
     public int currSceneNum;
+    public bool GameWasReset;
 
     public string[] elementTypes;
 
@@ -29,6 +30,7 @@ public class SaveSceneData : MonoBehaviour
             {
                 tempResetCheck.gameObject.transform.SetParent(this.transform);
                 SaveFile(new SceneData(4f, 1));
+                GameWasReset = true;
             }
         }
         if (!LoadFile()) //no file was loaded
@@ -62,7 +64,6 @@ public class SaveSceneData : MonoBehaviour
         else { file = File.Create(destination); }
 
         SceneData data = new SceneData(4f);
-        //Debug.Log("Save Hp: " + data.hp);
         BinaryFormatter bf = new BinaryFormatter();
         bf.Serialize(file, data);
         file.Close();

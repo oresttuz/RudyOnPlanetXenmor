@@ -15,23 +15,16 @@ public class LevelBrain : MonoBehaviour
 
     private SaveSceneData levelData;
     private PlayerMovement refToPlayerMovement;
-    private bool ZoomedIn, ZoomingIn, ZoomingOut;
+    private bool ZoomedIn, ZoomingIn, ZoomingOut, finishedInit;
 
     private void Awake()
     {
-        levelCanvas = Instantiate(pfCanvas, this.transform);
-        levelPlayer = Instantiate(pfPlayer, this.transform);
         levelData = Instantiate(pfSaveSceneData, this.transform).GetComponent<SaveSceneData>();
-        levelCanvas.GetComponent<Canvas>().worldCamera = RefToCineCam.GetComponentInParent<Camera>();
-        RefToRoomManager.GetComponent<RoomManager>().Player = levelPlayer;
-        RefToCineCam.m_Follow = levelPlayer.transform;
-        RefToCineCam.m_LookAt = levelPlayer.transform;
-        refToPlayerMovement = levelPlayer.GetComponent<PlayerMovement>();
-        ZoomedIn = false;
     }
 
     private void Update()
     {
+        if (!finishedInit) { return; }
         if (ZoomingIn)
         {
             RefToCineCam.m_Lens.OrthographicSize -= 0.2f;
@@ -46,6 +39,7 @@ public class LevelBrain : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!finishedInit) { return; }
         if (refToPlayerMovement.AreThereEnemiesAroundMe())
         {
             if (!ZoomedIn)
@@ -66,7 +60,27 @@ public class LevelBrain : MonoBehaviour
 
     public void GiveSceneGameData()
     {
-        levelPlayer.GetComponent<PlayerMovement>().UpdatePlayerOnSceneLoad(levelData.currHp);
+        if (levelData.GameWasReset)
+        {
+            levelCanvas = Instantiate(pfCanvas, this.transform);
+            levelPlayer = Instantiate(pfPlayer, this.transform);
+            levelPlayer.GetComponent<PlayerMovement>().UpdatePlayerOnSceneLoad(levelData.currHp);
+        }
+        else
+        {
+            levelCanvas = FindObjectOfType<Canvas>().gameObject;
+            levelCanvas.transform.SetParent(transform);
+            levelPlayer = FindObjectOfType<PlayerMovement>().gameObject;
+            levelPlayer.transform.SetParent(transform);
+        }
+        
+        levelCanvas.GetComponent<Canvas>().worldCamera = RefToCineCam.GetComponentInParent<Camera>();
+        RefToRoomManager.GetComponent<RoomManager>().Player = levelPlayer;
+        RefToCineCam.m_Follow = levelPlayer.transform;
+        RefToCineCam.m_LookAt = levelPlayer.transform;
+        refToPlayerMovement = levelPlayer.GetComponent<PlayerMovement>();
+        ZoomedIn = false;
+
         int firstIndex = -1, secondIndex = -1;
         while (firstIndex == secondIndex)
         {
@@ -75,12 +89,19 @@ public class LevelBrain : MonoBehaviour
         }
         RefToRoomManager.GetComponent<RoomManager>().songTitles.Add(levelData.elementTypes[firstIndex]);
         RefToRoomManager.GetComponent<RoomManager>().songTitles.Add(levelData.elementTypes[secondIndex]);
+        finishedInit = true;
     }
 
     public void EndLevel()
     {
+        Debug.Log("Ending Level");
         levelData.currHp = levelPlayer.GetComponent<PlayerMovement>().hb_instance.currHealth;
         ++levelData.currSceneNum;
+        levelPlayer.transform.GetChild(1).gameObject.SetActive(false);
+        levelCanvas.transform.SetParent(null);
+        levelPlayer.transform.SetParent(null);
+        DontDestroyOnLoad(levelCanvas);
+        DontDestroyOnLoad(levelPlayer);
         levelData.EndScene();
     }
 }

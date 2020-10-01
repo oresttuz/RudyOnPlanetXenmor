@@ -10,7 +10,6 @@ public class PointTowardsExit : MonoBehaviour
     {
         if (exitDoorTransform == null) { return; }
         Vector2 positionOnScreen = new Vector2(playerTransform.position.x, playerTransform.position.z);
-        //Vector2 exitdoor = Camera.main.ScreenToViewportPoint(exitDoorTransform.position);
         Vector2 exitdoor = new Vector2(exitDoorTransform.position.x, exitDoorTransform.position.z);
         float angle = -1f * AngleBetweenTwoPoints(positionOnScreen, exitdoor);
         transform.rotation = Quaternion.Euler(new Vector3(0f, angle, 0f));

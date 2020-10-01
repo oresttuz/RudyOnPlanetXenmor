@@ -18,6 +18,7 @@ ScriptsOnlyBuild:
     - SaveSceneData
     - SettingsBrain
     - TeleportDoor
+    - UnityEngine.AI.NavMeshModifier
     - UnityEngine.AI.NavMeshSurface
     - WeaponAnimationHandler
     Cinemachine.dll:
@@ -160,6 +161,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11350}
     - Class: 114
+      Script: {instanceID: 11448}
+    - Class: 114
       Script: {instanceID: 11482}
     - Class: 114
       Script: {instanceID: 11550}
@@ -196,13 +199,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12802}
     - Class: 114
-      Script: {instanceID: 13094}
+      Script: {instanceID: 13008}
     - Class: 114
-      Script: {instanceID: 13258}
+      Script: {instanceID: 13096}
     - Class: 114
-      Script: {instanceID: 13310}
+      Script: {instanceID: 13260}
     - Class: 114
-      Script: {instanceID: 18942}
+      Script: {instanceID: 13312}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -315,6 +318,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11350}
     - Class: 114
+      Script: {instanceID: 11448}
+    - Class: 114
       Script: {instanceID: 11482}
     - Class: 114
       Script: {instanceID: 11550}
@@ -351,13 +356,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12802}
     - Class: 114
-      Script: {instanceID: 13094}
+      Script: {instanceID: 13008}
     - Class: 114
-      Script: {instanceID: 13258}
+      Script: {instanceID: 13096}
     - Class: 114
-      Script: {instanceID: 13310}
+      Script: {instanceID: 13260}
     - Class: 114
-      Script: {instanceID: 18942}
+      Script: {instanceID: 13312}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -442,7 +447,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12936}
     - Class: 114
-      Script: {instanceID: 13310}
+      Script: {instanceID: 13312}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -676,7 +681,7 @@ ScriptsOnlyBuild:
     className: PostProcessProfile
   - hash:
       serializedVersion: 2
-      Hash: 2627c4bf56d449a8882a12cc8416e70a
+      Hash: 65083aef923227ada22bdb1cfe561715
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerMovement
@@ -1240,7 +1245,7 @@ ScriptsOnlyBuild:
     className: CinemachineImpulseSource
   - hash:
       serializedVersion: 2
-      Hash: 1a0d4092c6c42293d5d1e7a82abec21e
+      Hash: b308540a0e457258c25fe28adf065075
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SaveSceneData
@@ -1340,6 +1345,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_StyleSheet
+  - hash:
+      serializedVersion: 2
+      Hash: c404488a604827740530df944e1ba99d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Book
   - hash:
       serializedVersion: 2
       Hash: d5630f96bd5a6a6eed7e1754c3fb8703
@@ -1496,12 +1507,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: c404488a604827740530df944e1ba99d
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Book
   platform: 5
   scenePathNames:
   - Assets/Scenes/StartMenu.unity

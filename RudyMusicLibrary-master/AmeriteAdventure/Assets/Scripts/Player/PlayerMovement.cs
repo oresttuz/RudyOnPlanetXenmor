@@ -6,9 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     //refrences to objects/variables in inspector
     public Rigidbody rb;
-    public GameObject FirstWeapon, SecondWeapon, pfHB;
-    public Transform FirstWeaponCenter, SecondWeaponCenter;
+    public GameObject pfHB;
     public HealthBar hb_instance;
+    public List<GameObject> weapons;
     
     //editable variables to analyze runtime
     public LayerMask enemyLayers, hurtsMe;
@@ -27,32 +27,44 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        if (weaponOneAttacks == null) { weaponOneAttacks = new List<int>(); }
-        if (weaponTwoAttacks == null) { weaponTwoAttacks = new List<int>(); }
-        if (weaponOneAttacks.Count < 0) { weaponOneAttacks.Add(1); }
-        if (weaponTwoAttacks.Count < 0) { weaponTwoAttacks.Add(1); }
-
+        //----------  Section: Code Independent of the player having weapons  ----------//
         movement = new Vector3(0f, 0f, 0f);
         dash = new Vector3(0f, 0f, 0f);
 
-        wah1_Instance = this.transform.GetChild(0).GetComponentInChildren<WeaponAnimationHandler>();
-        wah2_Instance = this.transform.GetChild(1).GetComponentInChildren<WeaponAnimationHandler>();
+        if (hb_instance == null)
+        {
+            hb_instance = Instantiate(pfHB, FindObjectOfType<Canvas>().transform).GetComponent<HealthBar>();
+            hb_instance.Init();
+        }
 
-        hb_instance = Instantiate(pfHB, FindObjectOfType<Canvas>().transform).GetComponent<HealthBar>();
-        hb_instance.Init();
+        if (weapons == null) { weapons = new List<GameObject>(); } 
+        if (weaponOneAttacks == null) { weaponOneAttacks = new List<int>(); }
+        if (weaponTwoAttacks == null) { weaponTwoAttacks = new List<int>(); }
+        if (weaponOneAttacks.Count < 0) { weaponOneAttacks.Add(0); }
+        if (weaponTwoAttacks.Count < 0) { weaponTwoAttacks.Add(0); }
+        //end of section
 
-        Color newColor = FirstWeapon.GetComponent<SpriteRenderer>().color;
-        newColor.a = 1f;
-        FirstWeapon.GetComponent<SpriteRenderer>().color = newColor;
-        wah1_Instance.WeaponAnimator.SetInteger("Type", weaponOneAttacks[0]); 
-        Color newColor2 = SecondWeapon.GetComponent<SpriteRenderer>().color;
-        newColor.a = 0.5f;
-        SecondWeapon.GetComponent<SpriteRenderer>().color = newColor;
-        wah2_Instance.WeaponAnimator.SetInteger("Type", weaponTwoAttacks[0]);
+        //----------  Section: Weapon Code  ----------//
+        if (transform.childCount >= 3)
+        {
+            weapons.Add(transform.GetChild(2).gameObject);
+            InitWeapon(0);
+        }
+        if (transform.childCount >= 4)
+        {
+            weapons.Add(transform.GetChild(3).gameObject);
+            InitWeapon(1);
+        }
+        //end of section
     }
 
     public void UpdatePlayerOnSceneLoad(float sceneHp)
     {
+        if (hb_instance == null)
+        {
+            hb_instance = Instantiate(pfHB, FindObjectOfType<Canvas>().transform).GetComponent<HealthBar>();
+            hb_instance.Init();
+        }
         hb_instance.UpdateHpOnSceneLoad(sceneHp);
     }
 
@@ -62,9 +74,12 @@ public class PlayerMovement : MonoBehaviour
         // Input
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.z = Input.GetAxisRaw("Vertical");
-        if (Input.GetMouseButtonDown(0)) //leftClick
+        if (weapons.Count > 0)
         {
-            if (!dashing && !attacking) { Attack1(); }
+            if (Input.GetMouseButtonDown(0)) //leftClick
+            {
+                if (!dashing && !attacking) { Attack1(); }
+            }
         }
         if (Input.GetMouseButtonDown(1)) //rightClick
         {
@@ -79,59 +94,87 @@ public class PlayerMovement : MonoBehaviour
                 dash = new Vector3(0f, 0f, 0f);
                 rb.velocity = dash;
             }
-            else
-            {
-                dashCount += Time.deltaTime;
-            }
+            else { dashCount += Time.deltaTime; }
         }
-        else
-        {
-            rb.MovePosition(rb.position + (movement * moveSpeed * Time.deltaTime));
-        }
+        else { rb.MovePosition(rb.position + (movement * moveSpeed * Time.deltaTime)); }
     }
 
     private void FixedUpdate()
     {
         if (attacking) { return; }
-        
-        Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
-        Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
-        float angle = -1f * AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
-
-        //Ta Daaa
-        if (whichWeapon < 0)
+        if (weapons.Count == 2)
         {
-            
-            FirstWeaponCenter.transform.rotation = Quaternion.Euler(new Vector3(0f, angle, 0f));
-            SecondWeaponCenter.transform.rotation = Quaternion.Euler(new Vector3(0f, SecondWeaponCenter.transform.rotation.eulerAngles.y + 0.5f, 0f));
-        }
-        else
-        {
-            FirstWeaponCenter.transform.rotation = Quaternion.Euler(new Vector3(0f, FirstWeaponCenter.transform.eulerAngles.y + 0.5f, 0f));
-            SecondWeaponCenter.transform.rotation = Quaternion.Euler(new Vector3(0f, angle, 0f));
-        }
-        
-        if (Input.GetKeyDown(KeyCode.LeftShift)) //toggle Weapon
-        {
-            whichWeapon *= -1;
+            Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
+            Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
+            float angle = -1f * AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
             if (whichWeapon < 0)
             {
-                Color newColor = FirstWeapon.GetComponent<SpriteRenderer>().color;
-                newColor.a = 1f;
-                FirstWeapon.GetComponent<SpriteRenderer>().color = newColor;
-                Color newColor2 = SecondWeapon.GetComponent<SpriteRenderer>().color;
-                newColor.a = 0.5f;
-                SecondWeapon.GetComponent<SpriteRenderer>().color = newColor;
+                weapons[0].transform.rotation = Quaternion.Euler(new Vector3(0f, angle, 0f));
+                weapons[1].transform.rotation = Quaternion.Euler(new Vector3(0f, weapons[1].transform.rotation.eulerAngles.y + 0.5f, 0f));
             }
             else
             {
-                Color newColor = FirstWeapon.GetComponent<SpriteRenderer>().color;
-                newColor.a = 0.5f;
-                FirstWeapon.GetComponent<SpriteRenderer>().color = newColor;
-                Color newColor2 = SecondWeapon.GetComponent<SpriteRenderer>().color;
-                newColor.a = 1f;
-                SecondWeapon.GetComponent<SpriteRenderer>().color = newColor;
+                weapons[0].transform.rotation = Quaternion.Euler(new Vector3(0f, weapons[0].transform.eulerAngles.y + 0.5f, 0f));
+                weapons[1].transform.rotation = Quaternion.Euler(new Vector3(0f, angle, 0f));
             }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift)) //toggle Weapon
+            {
+                whichWeapon *= -1;
+                if (whichWeapon < 0)
+                {
+                    Color newColor = weapons[0].transform.GetChild(0).GetComponent<SpriteRenderer>().color;
+                    newColor.a = 1f;
+                    weapons[0].transform.GetChild(0).GetComponent<SpriteRenderer>().color = newColor;
+                    Color newColor2 = weapons[1].transform.GetChild(0).GetComponent<SpriteRenderer>().color;
+                    newColor.a = 0.5f;
+                    weapons[1].transform.GetChild(0).GetComponent<SpriteRenderer>().color = newColor;
+                }
+                else
+                {
+                    Color newColor = weapons[0].transform.GetChild(0).GetComponent<SpriteRenderer>().color;
+                    newColor.a = 0.5f;
+                    weapons[0].transform.GetChild(0).GetComponent<SpriteRenderer>().color = newColor;
+                    Color newColor2 = weapons[1].transform.GetChild(0).GetComponent<SpriteRenderer>().color;
+                    newColor.a = 1f;
+                    weapons[1].transform.GetChild(0).GetComponent<SpriteRenderer>().color = newColor;
+                }
+            }
+        }
+        else if (weapons.Count == 1)
+        {
+            Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
+            Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
+            float angle = -1f * AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
+
+            weapons[0].transform.rotation = Quaternion.Euler(new Vector3(0f, angle, 0f));
+        }
+    }
+
+    public void AddWeapon(GameObject weapon)
+    {
+        if (weapons.Count >= 2) { return; }
+        weapons.Add(weapon);
+        weapon.transform.SetParent(transform);
+        weapon.transform.localPosition = new Vector3(0f, 0f, 0f);
+        weapon.transform.localScale= new Vector3(1f, 1f, 1f);
+        InitWeapon(weapons.Count - 1);
+    }
+
+    public void InitWeapon(int indexOfWeapon)
+    {
+        Color newColor = weapons[indexOfWeapon].transform.GetChild(0).GetComponent<SpriteRenderer>().color;
+        newColor.a = 1f;
+        weapons[indexOfWeapon].transform.GetChild(0).GetComponent<SpriteRenderer>().color = newColor;
+        if (indexOfWeapon == 0)
+        {
+            wah1_Instance = weapons[indexOfWeapon].GetComponentInChildren<WeaponAnimationHandler>();
+            wah1_Instance.WeaponAnimator.SetInteger("Type", weaponOneAttacks[0]);
+        }
+        else if (indexOfWeapon == 1)
+        {
+            wah2_Instance = weapons[indexOfWeapon].GetComponentInChildren<WeaponAnimationHandler>();
+            wah2_Instance.WeaponAnimator.SetInteger("Type", weaponTwoAttacks[0]);
         }
     }
 
@@ -206,36 +249,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             weaponTwoAttacks.Add(attackNum);
-        }
-    }
-}
-
-public class Technique
-{
-    /*
-     * Techniques currently only vary by attackRange
-     * Shape, hitbox type, attack type, time to activate, time to finish animation, counterattacks, etc...
-     * are not implemented
-     * This class will be used to store all relevant data for attacks
-     * This may later include "Knowledge" (the magic system)
-     * Techniques {for now} do not need to worry if the attack has a prereq such as dashing or parrying
-     * That logic will be left to the main PlayerMovement class for now
-     * 
-     * actions? delegates?
-     */
-
-    public float damage, attackRange;
-
-    public void Func(GameObject weapon, LayerMask layersAffected, Animator weaponAnimator)
-    {
-        Collider[] hitEnemies = Physics.OverlapSphere(weapon.transform.position, attackRange, layersAffected);
-        weaponAnimator.SetBool("Attacking", true);
-
-        foreach (Collider enemy in hitEnemies)
-        {
-            
-            //add dmg
-            
         }
     }
 }

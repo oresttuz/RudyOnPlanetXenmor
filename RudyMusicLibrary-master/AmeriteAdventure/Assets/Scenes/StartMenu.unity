@@ -485,31 +485,31 @@ MonoBehaviour:
   sounds:
   - nameOfSound: MainMenu Theme
     clip: {fileID: 8300000, guid: 1da5754934c6f754bb62632d971a620d, type: 3}
-    volume: 0.5
+    volume: 0.1
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - nameOfSound: Fire
     clip: {fileID: 8300000, guid: 1b20059d7c50d2f4794da195d0d7ff32, type: 3}
-    volume: 0.5
+    volume: 0.1
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - nameOfSound: Ice
     clip: {fileID: 8300000, guid: df5e5fc8fd1d2b842b7d97fb45659bbc, type: 3}
-    volume: 0.5
+    volume: 0.1
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - nameOfSound: Lighting
     clip: {fileID: 8300000, guid: 1fa6709748466954b8a7670135fee295, type: 3}
-    volume: 0.5
+    volume: 0.1
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - nameOfSound: Nature
     clip: {fileID: 8300000, guid: c37750405da3d9d468dc492e6dd3a72f, type: 3}
-    volume: 0.5
+    volume: 0.1
     pitch: 1
     loop: 1
     source: {fileID: 0}

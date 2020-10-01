@@ -469,9 +469,9 @@ public class RoomGeneration : MonoBehaviour
     {
         if (enable)
         {
-            Debug.Log(myRGID);
-            Debug.Log(RoomX + ", " + RoomY);
-            Debug.Log(rooms[RoomX, RoomY]);
+            //Debug.Log(myRGID);
+            //Debug.Log(RoomX + ", " + RoomY);
+            //Debug.Log(rooms[RoomX, RoomY]);
             if (rooms[RoomX, RoomY].roomInGame.transform.GetChild(rooms[RoomX, RoomY].roomInGame.transform.childCount - 1).childCount > 0)
             {
                 if (rooms[RoomX, RoomY].roomInGame.transform.GetChild(rooms[RoomX, RoomY].roomInGame.transform.childCount - 1).GetChild(0).gameObject.name == "FogOfWar")
@@ -492,8 +492,7 @@ public class RoomGeneration : MonoBehaviour
                     {
                         Vector3 tempVec32 = new Vector3((RoomX * roomSize.x * 2f) + rgShift.x + (tempVec3.x * 2f), 0.5f, (RoomY * roomSize.y * 2f) + rgShift.z + (tempVec3.z * 2f));
                         tempEnemies[currEnemies] = Instantiate(pfEnemies[indexOfpfEnemy], tempVec32, Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
-                        //tempEnemies[currEnemies].transform.position = tempVec32;
-                        Debug.Log(tempEnemies[currEnemies].transform.position);
+                        //Debug.Log(tempEnemies[currEnemies].transform.position);
                         tempEnemies[currEnemies].transform.localScale 
                             = new Vector3(0.5f * tempEnemies[currEnemies].transform.localScale.x, tempEnemies[currEnemies].transform.localScale.y, 0.5f * tempEnemies[currEnemies].transform.localScale.z);
                         tempEnemies[currEnemies].GetComponent<EnemyMovement>().Player = PlayerObject;
@@ -510,11 +509,9 @@ public class RoomGeneration : MonoBehaviour
                     {
                         if (tries >= 20)
                         {
-                            //Debug.Log("I tried");
-                            Vector3 tempVec32 = new Vector3((RoomX * roomSize.x * 2f) + rgShift.x + (tempVec3.x * 2f), 0.5f, (RoomY * roomSize.y * 2f) + rgShift.z + (tempVec3.z * 2f) );
+                            Vector3 tempVec32 = new Vector3((RoomX * roomSize.x * 2f) + rgShift.x + (tempVec3.x * 2f), 0.5f, (RoomY * roomSize.y * 2f) + rgShift.z + (tempVec3.z * 2f));
                             tempEnemies[currEnemies] = Instantiate(pfEnemies[indexOfpfEnemy], tempVec32, Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
-                            //tempEnemies[currEnemies].transform.position = tempVec32;
-                            Debug.Log(tempEnemies[currEnemies].transform.position);
+                            //Debug.Log(tempEnemies[currEnemies].transform.position);
                             tempEnemies[currEnemies].transform.localScale
                                 = new Vector3(0.5f * tempEnemies[currEnemies].transform.localScale.x, tempEnemies[currEnemies].transform.localScale.y, 0.5f * tempEnemies[currEnemies].transform.localScale.z);
                             tempEnemies[currEnemies].GetComponent<EnemyMovement>().Player = PlayerObject;
@@ -548,7 +545,7 @@ public class RoomGeneration : MonoBehaviour
                 GameObject tempExitDoor = Instantiate(pfExit, rooms[xIndex, yIndex].roomInGame.transform);
                 Vector3Int exitTile = rooms[xIndex, yIndex].FindFloor();
                 tempExitDoor.transform.localPosition = new Vector3((xIndex * roomSize.x) + exitTile.x, 0.05f, (yIndex * roomSize.y) + exitTile.z);
-                PlayerObject.transform.GetChild(3).gameObject.SetActive(true);
+                PlayerObject.transform.GetChild(1).gameObject.SetActive(true);
                 PlayerObject.transform.GetComponentInChildren<PointTowardsExit>().exitDoorTransform = tempExitDoor.transform;
                 PlayerObject.transform.GetComponentInChildren<PointTowardsExit>().playerTransform = PlayerObject.transform;
             }

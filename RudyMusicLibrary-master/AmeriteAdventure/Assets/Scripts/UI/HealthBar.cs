@@ -137,7 +137,6 @@ public class HealthBar : MonoBehaviour
                 currHealth -= diff;
             }   
         }
-        Debug.Log("currHealth: " + currHealth);
     }
 
     public HeartObject MakeHeart()
