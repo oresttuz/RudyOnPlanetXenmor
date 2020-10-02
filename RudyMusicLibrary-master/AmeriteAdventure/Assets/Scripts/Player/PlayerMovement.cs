@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     //refrences to objects/variables in inspector
     public Rigidbody rb;
-    public GameObject pfHB;
+    public GameObject pfHB, pfSpear;
     public HealthBar hb_instance;
     public List<GameObject> weapons;
     
@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     
     private float dashCount = 0.0f;
     private int whichWeapon = -1; //-1 = first, 1 = second
-    private Vector3 movement, dash;
+    private Vector3 movement, dash, throwForce = new Vector3(20f, 0f, 20f);
     private int w1AttackIndex = 0, w2AttackIndex = 0;
     private Vector2 origin = new Vector2(0f, 0f);
 
@@ -178,19 +178,35 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void RemoveWeapon()
+    public void ThrowWeapon()
     {
-        if (weapons.Count < 2 || whichWeapon < 0)
+        if (weapons.Count == 0) { return; }
+        int index = 0;
+        if (weapons.Count == 2)
         {
-            weapons.RemoveAt(0);
-            wah1_Instance = null;
+            if (whichWeapon > 0) { index = 1; }
         }
-        else
+        weapons[index].SetActive(false);
+        GameObject tempRefToWeapon = Instantiate(pfSpear, weapons[index].transform.GetChild(0).position, weapons[index].transform.rotation, null);
+        tempRefToWeapon.transform.rotation = Quaternion.Euler(tempRefToWeapon.transform.rotation.eulerAngles.x, tempRefToWeapon.transform.eulerAngles.y - 90f, tempRefToWeapon.transform.eulerAngles.z);
+
+        float y = tempRefToWeapon.transform.rotation.eulerAngles.y;
+        Debug.Log(y);
+        y *= Mathf.Deg2Rad;
+        Debug.Log(y);
+
+        tempRefToWeapon.GetComponent<Rigidbody>().velocity = new Vector3(throwForce.x * Mathf.Sin(y), 0f, throwForce.z * Mathf.Cos(y));
+    }
+
+    public void ReturnWeapon()
+    {
+        if (weapons.Count == 0) { return; }
+        if (weapons.Count == 2)
         {
-            weapons.RemoveAt(1);
-            wah2_Instance = null;
-            whichWeapon *= -1;
+            if (weapons[1].activeInHierarchy == false) { weapons[1].SetActive(true); }
+            else { weapons[0].SetActive(true); }
         }
+        else { weapons[0].SetActive(true); }
     }
 
     public void Attack1()
@@ -198,11 +214,11 @@ public class PlayerMovement : MonoBehaviour
         attacking = true;
         if (whichWeapon < 0)
         {
-            w1AttackIndex = NextAttackAnimation(wah1_Instance, weaponOneAttacks, w1AttackIndex);
+            if (weapons[0].activeSelf) { w1AttackIndex = NextAttackAnimation(wah1_Instance, weaponOneAttacks, w1AttackIndex); }
         }
         else
         {
-            w2AttackIndex = NextAttackAnimation(wah2_Instance, weaponTwoAttacks, w2AttackIndex);
+            if (weapons[1].activeSelf) { w2AttackIndex = NextAttackAnimation(wah2_Instance, weaponTwoAttacks, w2AttackIndex); }
         }
     }
 

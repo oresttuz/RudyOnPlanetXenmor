@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 7825345578602301108}
   - component: {fileID: 4238375293994581631}
   m_Layer: 9
-  m_Name: PlayerWithoutWeapons
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -263,12 +263,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 7825345578602301108}
-  FirstWeapon: {fileID: 0}
-  SecondWeapon: {fileID: 0}
   pfHB: {fileID: 7666605178362791742, guid: 208c073669ac6484188acb8f61ea7243, type: 3}
-  FirstWeaponCenter: {fileID: 0}
-  SecondWeaponCenter: {fileID: 0}
+  pfSpear: {fileID: 793504433051847232, guid: c314364fd6c840c438d0cae95647cfc6, type: 3}
   hb_instance: {fileID: 0}
+  weapons: []
   enemyLayers:
     serializedVersion: 2
     m_Bits: 256
