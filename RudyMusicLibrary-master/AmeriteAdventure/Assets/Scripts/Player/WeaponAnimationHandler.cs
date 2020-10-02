@@ -7,7 +7,7 @@ public class WeaponAnimationHandler : MonoBehaviour
     private static readonly WeaponAnimationHandler instance;
     public static WeaponAnimationHandler Instance() { return instance; }
 
-    public bool Throwable;
+    public bool Throwable, canUseKnowledge;
 
     public string tagString, grandParentString;
     public Animator WeaponAnimator;
@@ -16,7 +16,9 @@ public class WeaponAnimationHandler : MonoBehaviour
 
     [HideInInspector]
     public float Dmg;
-    
+    [HideInInspector]
+    public AttackData[] weaponKnowledge;
+
 
     public void AnimationEnded()
     {
@@ -36,7 +38,7 @@ public class WeaponAnimationHandler : MonoBehaviour
             transform.parent.GetComponentInParent<EnemyMovement>().cooldown = 0.5f;
         }
         WeaponAnimator.SetBool("Attacking", false);
-        WeaponAnimator.SetInteger("Type", nextType);        
+        WeaponAnimator.SetInteger("Type", nextType);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,10 +47,11 @@ public class WeaponAnimationHandler : MonoBehaviour
         {
             if (other.gameObject.tag == tagString)
             {
+                //EnableWeaponKnowledge(other.gameObject);
                 other.gameObject.GetComponentInParent<EnemyData>().Damage(2f);
             }
         }
-        else if(grandParentString == "Enemy")
+        else if (grandParentString == "Enemy")
         {
             if (other.gameObject.tag == tagString)
             {
@@ -56,4 +59,28 @@ public class WeaponAnimationHandler : MonoBehaviour
             }
         }
     }
+
+    public void EnableWeaponKnowledge(GameObject thingToAffect)
+    {
+        int technique = WeaponAnimator.GetInteger("Type");
+        AttackType knowledge = weaponKnowledge[technique].knowledge;
+        switch (knowledge)
+        {
+            case AttackType.Fire:
+                //deal tick dmg
+                break;
+            case AttackType.Ice:
+                //slow enemy
+                break;
+            case AttackType.Lighting:
+                //stun enemy
+                break;
+            case AttackType.Nature:
+                //summon bush
+                break;
+            case AttackType.None:
+                break;
+        }
+    }
+
 }

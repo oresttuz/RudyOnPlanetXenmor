@@ -12,10 +12,18 @@ public class EnemyData : MonoBehaviour
 
     [HideInInspector]
     public RoomGeneration myIns;
+
     [HideInInspector]
     public HealthBar EnemyHB_Instance;
+
     [HideInInspector]
     public int myX, myY;
+
+    [HideInInspector]
+    public bool onFire;
+
+    [HideInInspector]
+    public float timeOnFire, timeTilFirePutOut;
 
     private void Start()
     {
@@ -38,6 +46,18 @@ public class EnemyData : MonoBehaviour
             myIns.EnemyDied(myX, myY);
             Destroy(EnemyHB_Instance.gameObject);
             Destroy(this.gameObject);
+        }
+        if (onFire)
+        {
+            if (timeOnFire <= timeTilFirePutOut)
+            {
+                Damage(0.25f);
+                timeOnFire += Time.fixedDeltaTime;
+            }
+            else
+            {
+                onFire = false;
+            }
         }
     }
 

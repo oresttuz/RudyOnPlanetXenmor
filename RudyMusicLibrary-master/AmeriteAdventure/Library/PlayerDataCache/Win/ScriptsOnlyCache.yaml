@@ -10,6 +10,7 @@ ScriptsOnlyBuild:
     - HealthBar
     - HeartObject
     - LevelBrain
+    - PickupWeapon
     - PlayerMovement
     - PointTowardsExit
     - ResetGame
@@ -21,6 +22,7 @@ ScriptsOnlyBuild:
     - UnityEngine.AI.NavMeshModifier
     - UnityEngine.AI.NavMeshSurface
     - WeaponAnimationHandler
+    - pickupThrowable
     Cinemachine.dll:
     - Cinemachine.CinemachineBrain
     - Cinemachine.CinemachineFramingTransposer
@@ -66,8 +68,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -197,15 +201,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12622}
     - Class: 114
-      Script: {instanceID: 12802}
+      Script: {instanceID: 12694}
     - Class: 114
-      Script: {instanceID: 13008}
+      Script: {instanceID: 12804}
     - Class: 114
-      Script: {instanceID: 13096}
+      Script: {instanceID: 13012}
     - Class: 114
-      Script: {instanceID: 13260}
+      Script: {instanceID: 13100}
     - Class: 114
-      Script: {instanceID: 13312}
+      Script: {instanceID: 13264}
+    - Class: 114
+      Script: {instanceID: 13316}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -354,15 +360,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12622}
     - Class: 114
-      Script: {instanceID: 12802}
+      Script: {instanceID: 12694}
     - Class: 114
-      Script: {instanceID: 13008}
+      Script: {instanceID: 12804}
     - Class: 114
-      Script: {instanceID: 13096}
+      Script: {instanceID: 12808}
     - Class: 114
-      Script: {instanceID: 13260}
+      Script: {instanceID: 13012}
     - Class: 114
-      Script: {instanceID: 13312}
+      Script: {instanceID: 13100}
+    - Class: 114
+      Script: {instanceID: 13264}
+    - Class: 114
+      Script: {instanceID: 13316}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -445,9 +455,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12622}
     - Class: 114
-      Script: {instanceID: 12936}
+      Script: {instanceID: 12940}
     - Class: 114
-      Script: {instanceID: 13312}
+      Script: {instanceID: 13316}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -681,7 +691,7 @@ ScriptsOnlyBuild:
     className: PostProcessProfile
   - hash:
       serializedVersion: 2
-      Hash: 65083aef923227ada22bdb1cfe561715
+      Hash: 563323262e0e48d05fc273b259537d5a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerMovement
@@ -873,7 +883,7 @@ ScriptsOnlyBuild:
     className: CinemachinePOV
   - hash:
       serializedVersion: 2
-      Hash: b1e03e5bc43e0f906efff813d0468f56
+      Hash: 5d9bd5592654178dca3845c744ba63b6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: WeaponAnimationHandler
@@ -987,7 +997,7 @@ ScriptsOnlyBuild:
     className: AutoExposure
   - hash:
       serializedVersion: 2
-      Hash: 68394779657e66648ce6fd2bb3226344
+      Hash: c4f037120be366747f73afaa10464619
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: EnemyData
@@ -1125,7 +1135,7 @@ ScriptsOnlyBuild:
     className: CinemachineMixingCamera
   - hash:
       serializedVersion: 2
-      Hash: edb3c568d4a423adfbebaeeed54b2dff
+      Hash: 82912254156957936eb32159eac50f6e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RoomManager
@@ -1227,7 +1237,7 @@ ScriptsOnlyBuild:
     className: CinemachineBlenderSettings
   - hash:
       serializedVersion: 2
-      Hash: a3afe99ca561e29c57ab6249113b6e4a
+      Hash: eedb4ae17327e974ea5d9e36624b0560
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: EnemyMovement
@@ -1300,6 +1310,12 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PickupWeapon
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachineHardLookAt
@@ -1311,10 +1327,16 @@ ScriptsOnlyBuild:
     className: CinemachineInputProvider
   - hash:
       serializedVersion: 2
-      Hash: 64121116b173cbd74f6d0143d43caf1f
+      Hash: ac465ab4d6816bf71eb60ddfbe86fdbe
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RoomGeneration
+  - hash:
+      serializedVersion: 2
+      Hash: 620643d7b65a10a2646bdef594a3bab5
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: pickupThrowable
   - hash:
       serializedVersion: 2
       Hash: ffd3ed4fcd23b3e7745287c99a637247
@@ -1512,4 +1534,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/StartMenu.unity
   - Assets/Scenes/Main.unity
   - Assets/Scenes/BossScene.unity
-  playerPath: D:/Ball Game/TempBuilds/AmeriteAdventure.exe
+  playerPath: D:/tempAlphaBuildV0.9/AmeriteAdventure.exe

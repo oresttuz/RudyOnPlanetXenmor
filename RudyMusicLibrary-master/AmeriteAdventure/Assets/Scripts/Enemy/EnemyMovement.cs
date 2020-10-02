@@ -11,7 +11,8 @@ public class EnemyMovement : MonoBehaviour
     [HideInInspector]
     public GameObject Player;
     [HideInInspector]
-    public float Dmg, timeTilEnable = 0.5f, timeSinceSpawn, cooldown = 0f;
+    public float Dmg, timeTilEnable = 0.5f, timeSinceSpawn, cooldown = 0f,
+        timeSlowed, timeTilUnslow, timeStunned, timeTilUnstunned;
 
     //variables that can be fine tuned
     public LayerMask playerLayers, hurtsMe;

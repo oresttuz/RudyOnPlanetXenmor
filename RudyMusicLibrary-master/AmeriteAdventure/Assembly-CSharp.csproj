@@ -62,19 +62,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Book.cs" />
     <Compile Include="Assets\NavMeshComponents\Scripts\NavMeshLink.cs" />
     <Compile Include="Assets\NavMeshComponents\Scripts\NavMeshModifier.cs" />
     <Compile Include="Assets\NavMeshComponents\Scripts\NavMeshModifierVolume.cs" />
     <Compile Include="Assets\NavMeshComponents\Scripts\NavMeshSurface.cs" />
-    <Compile Include="Assets\pickupThrowable.cs" />
-    <Compile Include="Assets\PickupWeapon.cs" />
     <Compile Include="Assets\Scripts\AudioManager.cs" />
+    <Compile Include="Assets\Scripts\Book.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyData.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\Enemy\Slime\SlimeAnimationHandler.cs" />
     <Compile Include="Assets\Scripts\Enemy\Slime\SlimeMovement.cs" />
     <Compile Include="Assets\Scripts\Enemy\Slime\SpawnEnemy.cs" />
+    <Compile Include="Assets\Scripts\pickupThrowable.cs" />
+    <Compile Include="Assets\Scripts\PickupWeapon.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Player\WeaponAnimationHandler.cs" />

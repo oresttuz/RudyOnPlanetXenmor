@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask enemyLayers, hurtsMe;
     public float attackRange, moveSpeed, dashSpeed, dashDuration;
     public List<int> weaponOneAttacks, weaponTwoAttacks;
+    public AttackData[] playerKnowledge = new AttackData[4];
 
     public bool dashing = false, attacking = false;
     //variables specific to this instance
@@ -42,6 +43,11 @@ public class PlayerMovement : MonoBehaviour
         if (weaponTwoAttacks == null) { weaponTwoAttacks = new List<int>(); }
         if (weaponOneAttacks.Count < 0) { weaponOneAttacks.Add(0); }
         if (weaponTwoAttacks.Count < 0) { weaponTwoAttacks.Add(0); }
+
+        for (int ad = 0; ad < playerKnowledge.Length; ++ad)
+        {
+            playerKnowledge[ad] = new AttackData(ad);
+        }
         //end of section
 
         //----------  Section: Weapon Code  ----------//
@@ -101,6 +107,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (hb_instance.currHealth <= 0f)
+        {
+            Destroy(gameObject);
+            return;
+        }
         if (attacking) { return; }
         if (weapons.Count == 2)
         {
@@ -229,6 +240,7 @@ public class PlayerMovement : MonoBehaviour
         {
             indexCounter = 0;
         }
+        //can tint it here //can tint it here //can tint it here //can tint it here //can tint it here //can tint it here //can tint it here
         InstanceOfWah.WeaponAnimator.SetBool("Attacking", true);
         InstanceOfWah.nextType = wAttacks[indexCounter];
         return indexCounter;
@@ -283,3 +295,24 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 }
+
+public class AttackData
+{
+    public int attackNum;
+    public AttackType knowledge;
+
+    public AttackData(int numOfAttack)
+    {
+        attackNum = numOfAttack;
+        knowledge = AttackType.None;
+    }
+}
+
+public enum AttackType
+{
+    None = 0,
+    Fire = 1,
+    Ice = 2,
+    Lighting = 3,
+    Nature = 4
+};
