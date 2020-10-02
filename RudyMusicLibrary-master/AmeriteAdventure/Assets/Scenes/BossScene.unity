@@ -392,8 +392,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741189021865424894}
-  m_LocalRotation: {x: 0.38268343, y: 0.0000021164838, z: -0.0000051030333, w: 0.92387956}
-  m_LocalPosition: {x: -0.00000010494698, y: 23.76586, z: -23.76586}
+  m_LocalRotation: {x: 0.38268343, y: 0.0000021173444, z: -0.000005105125, w: 0.92387956}
+  m_LocalPosition: {x: -0.000000104518136, y: 23.76586, z: -23.76586}
   m_LocalScale: {x: 1.2, y: 1.3500001, z: 1.3500001}
   m_Children:
   - {fileID: 4614104401498889571}
@@ -427,6 +427,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   pfRoomGen: {fileID: 6563317464869359594, guid: d5c3c47b46114134885fa7c4d22dddda,
     type: 3}
+  IceBoss: {fileID: 7919905170486829976, guid: 9b5251ca6358c644c99a3632ff6ac751, type: 3}
   numRoomsInDimension: {x: 1, y: 2, z: 0}
   roomSize: {x: 64, y: 64, z: 0}
   numRoomsInLevel: 2
@@ -437,6 +438,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 561305cf6264c1b4880eb053754dd7bd, type: 2}
   generation_Instances: []
   isBossRoom: 1
+  songTitles: []
 --- !u!4 &3257479304557007370
 Transform:
   m_ObjectHideFlags: 0

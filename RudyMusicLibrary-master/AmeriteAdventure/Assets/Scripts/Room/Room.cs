@@ -681,14 +681,24 @@ public class Room
 
     public void enableRoom(bool playerIsInRoom)
     {
-        Debug.Log("Mystate: " + myState);
-        if (myState == RoomState.Cleared) { return; } //if room is cleared, disregard this function
+        if (myState == RoomState.Cleared) { return; }
         roomInGame.SetActive(playerIsInRoom);
         if (!playerIsInRoom) { return; }
         if (myState == RoomState.Unopened)
         {
-            Debug.Log(roomInGame.transform.GetChild(roomInGame.transform.childCount - 1).GetChild(0).name);
             roomInGame.transform.GetChild(roomInGame.transform.childCount - 1).GetChild(0).gameObject.SetActive(false);
+            myState = RoomState.EnemiesInRoom;
+            UnLockDoors(false, Opening);
+        }
+    }
+
+    public void enableRoom(bool playerIsInRoom, bool EnemiesInRoom)
+    {
+        if (myState == RoomState.Cleared) { return; } 
+        roomInGame.SetActive(playerIsInRoom);
+        if (!playerIsInRoom) { return; }
+        if (myState == RoomState.Unopened && EnemiesInRoom)
+        {
             myState = RoomState.EnemiesInRoom;
             UnLockDoors(false, Opening);
         }
@@ -696,7 +706,6 @@ public class Room
 
     public void enableRoom(bool playerIsInRoom, GameObject[] enemyObjsToSpawn)
     {
-        Debug.Log(myState + " = mystate ; " + playerIsInRoom);
         if (myState == RoomState.Cleared) { return; } //if room is cleared, disregard this function
         roomInGame.SetActive(playerIsInRoom);
         if (!playerIsInRoom) { return; } //if the player isn't in this room, disregard the rest of the code
@@ -766,7 +775,12 @@ public class Room
         {
             floorPos.x = rand.Next(0, RoomGrid.GetLength(0));
             floorPos.z = rand.Next(0, RoomGrid.GetLength(1));
-            if (RoomGrid[floorPos.x, floorPos.z] == TileType.floor) { return floorPos; }
+            if (RoomGrid[floorPos.x, floorPos.z] == TileType.floor)
+            {
+                if(RoomGrid[floorPos.x - 1, floorPos.z] != TileType.wall && RoomGrid[floorPos.x, floorPos.z - 1] != TileType.wall 
+                    && RoomGrid[floorPos.x + 1, floorPos.z] != TileType.wall && RoomGrid[floorPos.x, floorPos.z + 1] != TileType.wall )
+                return floorPos;
+            }
         }
         return floorPos;
     }
@@ -827,8 +841,6 @@ public enum Direction : short
     Down = 4,
     Left = 8
 };
-
-
 
 public enum RoomState
 {

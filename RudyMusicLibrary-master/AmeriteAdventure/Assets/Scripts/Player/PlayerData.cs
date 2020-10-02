@@ -22,7 +22,7 @@ public class PlayerData : MonoBehaviour
         {
             if (objectCollider.gameObject.tag == "Enemy")
             {
-                phb_instance.Damage(objectCollider.gameObject.GetComponentInParent<EnemyData>().dmg);
+                phb_instance.Damage(objectCollider.gameObject.GetComponentInParent<EnemyData>().damage);
                 if (phb_instance.currHealth < 0f)
                 {
                     Destroy(this.gameObject);

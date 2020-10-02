@@ -273,11 +273,12 @@ MonoBehaviour:
   pfExit: {fileID: 5147953153772018124, guid: ee5240db54ef03c4ebb32023394270fa, type: 3}
   pfLight: {fileID: 3912754967831919237, guid: c6bcaaeee429d27409e260d02c83ddc7, type: 3}
   pfBook: {fileID: 8362313953931513491, guid: 2f1644a0dfad4384a81d3d158a7e26e8, type: 3}
+  pfBoss: {fileID: 7919905170486829976, guid: 9b5251ca6358c644c99a3632ff6ac751, type: 3}
   pfEnemies:
+  - {fileID: 9012961819371976383, guid: 985d352802bb13946ad1eb4e7521541b, type: 3}
   - {fileID: 3150227168600565355, guid: 986d90454727c5e4ab98946064c810ef, type: 3}
   - {fileID: 3150227168600565355, guid: 986d90454727c5e4ab98946064c810ef, type: 3}
-  - {fileID: 3150227168600565355, guid: 986d90454727c5e4ab98946064c810ef, type: 3}
-  - {fileID: 3150227168600565355, guid: 986d90454727c5e4ab98946064c810ef, type: 3}
+  - {fileID: 9198231238440488660, guid: 4fcfcdeec9717b7419113786918e8d9c, type: 3}
   myRGID: 
   songNameTitles: []
   startRoomVec: {x: -1, y: -1, z: -1}

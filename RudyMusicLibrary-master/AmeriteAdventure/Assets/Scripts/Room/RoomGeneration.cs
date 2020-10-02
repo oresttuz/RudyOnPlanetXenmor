@@ -16,7 +16,8 @@ public class RoomGeneration : MonoBehaviour
         return instance;
     }
 
-    public GameObject PlayerObject, pfRoomGroup, pfFloorPlane, pfWallCube, pfDoorCube, pfHB, pfExit, pfLight, pfBook;
+    public GameObject PlayerObject, pfRoomGroup, pfFloorPlane, pfWallCube, 
+        pfDoorCube, pfHB, pfExit, pfLight, pfBook, pfBoss;
     public GameObject[] pfEnemies;
     public string myRGID;
     public List<string> songNameTitles;
@@ -230,7 +231,11 @@ public class RoomGeneration : MonoBehaviour
             GameObject RoomFloor = Instantiate(pfFloorPlane, RoomGrouping.transform);
             RoomFloor.transform.localScale = new Vector3(roomSize.x / (10f), 1f, roomSize.y / 10f);
             RoomFloor.transform.position = new Vector3(((v3i.x * roomSize.x) + (roomSize.x / 2)) * 2f, 0f, ((v3i.y * roomSize.y) + (roomSize.y / 2)) * 2f);
-            RoomFloor.GetComponent<NavMeshSurface>().BuildNavMesh();
+            if (v3i == endRoomVec)
+            { RoomFloor.GetComponent<NavMeshSurface>().BuildNavMesh(); }
+            else
+            { RoomFloor.GetComponent<NavMeshSurface>().BuildNavMesh(); }
+            
             rooms[v3i.x, v3i.y].roomInGame = RoomGrouping;
         }
     }
@@ -469,67 +474,57 @@ public class RoomGeneration : MonoBehaviour
     {
         if (enable)
         {
-            //Debug.Log(myRGID);
-            //Debug.Log(RoomX + ", " + RoomY);
-            //Debug.Log(rooms[RoomX, RoomY]);
             if (rooms[RoomX, RoomY].roomInGame.transform.GetChild(rooms[RoomX, RoomY].roomInGame.transform.childCount - 1).childCount > 0)
             {
-                if (rooms[RoomX, RoomY].roomInGame.transform.GetChild(rooms[RoomX, RoomY].roomInGame.transform.childCount - 1).GetChild(0).gameObject.name == "FogOfWar")
-                {
-                    Destroy(rooms[RoomX, RoomY].roomInGame.transform.GetChild(rooms[RoomX, RoomY].roomInGame.transform.childCount - 1).GetChild(0).gameObject);
-                }
+                GameObject tempCheck = rooms[RoomX, RoomY].roomInGame.transform.GetChild(rooms[RoomX, RoomY].roomInGame.transform.childCount - 1).GetChild(0).gameObject;
+                if (tempCheck.name == "FogOfWar") { Destroy(tempCheck.gameObject); }
+            }
+            if (rooms[RoomX, RoomY].isABossRoom)
+            {
+                EnemySpawned(RoomX, RoomY, pfBoss, null);
+                rooms[RoomX, RoomY].enableRoom(true, true);
+                return;
             }
             GameObject[] tempEnemies = new GameObject[5];
             if (rooms[RoomX, RoomY].myState == RoomState.Unopened)
             {
-                int numEnemiesInRoom = tempEnemies.Length, currEnemies = 0, tries = 0;
-                List<Vector3> enemyIsHere = new List<Vector3>();
+                int numEnemiesInRoom = tempEnemies.Length, currEnemies = 0;
                 while (currEnemies < numEnemiesInRoom)
                 {
-                    Vector3 tempVec3 = rooms[RoomX, RoomY].FindFloor();
                     int indexOfpfEnemy = Mathf.FloorToInt(Random.Range(0f, pfEnemies.Length - 0.01f));
-                    if (!enemyIsHere.Contains(tempVec3))
-                    {
-                        Vector3 tempVec32 = new Vector3((RoomX * roomSize.x * 2f) + rgShift.x + (tempVec3.x * 2f), 0.5f, (RoomY * roomSize.y * 2f) + rgShift.z + (tempVec3.z * 2f));
-                        tempEnemies[currEnemies] = Instantiate(pfEnemies[indexOfpfEnemy], tempVec32, Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
-                        //Debug.Log(tempEnemies[currEnemies].transform.position);
-                        tempEnemies[currEnemies].transform.localScale 
-                            = new Vector3(0.5f * tempEnemies[currEnemies].transform.localScale.x, tempEnemies[currEnemies].transform.localScale.y, 0.5f * tempEnemies[currEnemies].transform.localScale.z);
-                        tempEnemies[currEnemies].GetComponent<EnemyMovement>().Player = PlayerObject;
-                        tempEnemies[currEnemies].GetComponent<EnemyData>().myX = RoomX;
-                        tempEnemies[currEnemies].GetComponent<EnemyData>().myY = RoomY;
-                        tempEnemies[currEnemies].GetComponent<EnemyData>().EnemyHB_Instance = Instantiate(pfHB, FindObjectOfType<Canvas>().transform).GetComponent<HealthBar>();
-                        tempEnemies[currEnemies].GetComponent<EnemyData>().myIns = this;
-                        tempEnemies[currEnemies].SetActive(false);
-                        ++currEnemies;
-                        enemyIsHere.Add(tempVec3);
-                        tries = 0;
-                    }
-                    else
-                    {
-                        if (tries >= 20)
-                        {
-                            Vector3 tempVec32 = new Vector3((RoomX * roomSize.x * 2f) + rgShift.x + (tempVec3.x * 2f), 0.5f, (RoomY * roomSize.y * 2f) + rgShift.z + (tempVec3.z * 2f));
-                            tempEnemies[currEnemies] = Instantiate(pfEnemies[indexOfpfEnemy], tempVec32, Quaternion.identity, rooms[RoomX, RoomY].roomInGame.transform);
-                            //Debug.Log(tempEnemies[currEnemies].transform.position);
-                            tempEnemies[currEnemies].transform.localScale
-                                = new Vector3(0.5f * tempEnemies[currEnemies].transform.localScale.x, tempEnemies[currEnemies].transform.localScale.y, 0.5f * tempEnemies[currEnemies].transform.localScale.z);
-                            tempEnemies[currEnemies].GetComponent<EnemyMovement>().Player = PlayerObject;
-                            tempEnemies[currEnemies].GetComponent<EnemyData>().myX = RoomX;
-                            tempEnemies[currEnemies].GetComponent<EnemyData>().myY = RoomY;
-                            tempEnemies[currEnemies].GetComponent<EnemyData>().EnemyHB_Instance = Instantiate(pfHB, FindObjectOfType<Canvas>().transform).GetComponent<HealthBar>();
-                            tempEnemies[currEnemies].GetComponent<EnemyData>().myIns = this;
-                            tempEnemies[currEnemies].SetActive(false);
-                            ++currEnemies;
-                            tries = 0;
-                        }
-                        else { ++tries; }
-                    }
+                    EnemySpawned(RoomX, RoomY, pfEnemies[indexOfpfEnemy], null);
+                    ++currEnemies;
                 }
-            }
-            rooms[RoomX, RoomY].enableRoom(true, tempEnemies);
+                rooms[RoomX, RoomY].enableRoom(true, true);
+            } 
         }
         else { rooms[RoomX, RoomY].enableRoom(false); }
+    }
+
+    public void EnemySpawned(int xIndex, int yIndex, GameObject pfEnemyToSpawn, GameObject boss)
+    {
+        if (pfEnemyToSpawn == null)
+        {
+            Debug.Log("Nothing to spawn");
+            return;
+        }
+        ++rooms[xIndex, yIndex].numEnemies;
+
+        Vector3 floorVec3 = rooms[xIndex, yIndex].FindFloor();
+        Vector3 enemyPosVec3 
+            = new Vector3((xIndex * roomSize.x * 2f) + (floorVec3.x * 2f) + (pfEnemyToSpawn.transform.localScale.x * 0.25f) + rgShift.x,
+                pfEnemyToSpawn.transform.position.y, 
+                    (yIndex * roomSize.y * 2f) + (floorVec3.z * 2f) + (pfEnemyToSpawn.transform.localScale.z * 0.25f) + rgShift.z);
+
+        GameObject tempEnemy = Instantiate(pfEnemyToSpawn, enemyPosVec3, Quaternion.identity, rooms[xIndex, yIndex].roomInGame.transform);
+        tempEnemy.transform.localScale
+            = new Vector3(0.5f * tempEnemy.transform.localScale.x, tempEnemy.transform.localScale.y, 0.5f * tempEnemy.transform.localScale.z);
+        if (boss != null) { tempEnemy.GetComponent<EnemyMovement>().Player = boss; }
+        else { tempEnemy.GetComponent<EnemyMovement>().Player = PlayerObject; }
+        tempEnemy.GetComponent<EnemyData>().myX = xIndex;
+        tempEnemy.GetComponent<EnemyData>().myY = yIndex;
+        tempEnemy.GetComponent<EnemyData>().EnemyHB_Instance = Instantiate(pfHB, FindObjectOfType<Canvas>().transform).GetComponent<HealthBar>();
+        tempEnemy.GetComponent<EnemyData>().myIns = this;
     }
 
     public void EnemyDied(int xIndex, int yIndex)

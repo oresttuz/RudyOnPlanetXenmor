@@ -179,11 +179,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 996d9208e847aec4490600f1e888b8da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 4
+  damage: 0.5
+  isNested: 0
+  hasDmgAnimation: 0
+  nestedEnemyBaby: {fileID: 0}
   myIns: {fileID: 0}
   EnemyHB_Instance: {fileID: 0}
-  health: 0
-  dmg: 0
-  hasDmgAnimation: 0
   myX: 0
   myY: 0
 --- !u!114 &3150227168600565365
@@ -198,8 +200,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb58729b5ae568a4f8871db9e80b86e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
   Weapon: {fileID: 3150227168604241664}
+  Player: {fileID: 0}
+  Dmg: 0
+  timeTilEnable: 0.5
+  timeSinceSpawn: 0
+  cooldown: 0
   playerLayers:
     serializedVersion: 2
     m_Bits: 512
@@ -208,8 +214,7 @@ MonoBehaviour:
     m_Bits: 0
   timeBetweenDetect: 1
   radius: 1.06
-  hp: 0
-  BoxVec: {x: 2.09, y: 0.5, z: 1}
+  hasNoWeapon: 0
 --- !u!1 &3150227168604241664
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,10 +330,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ef987c557c003343906a395fb652003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Throwable: 0
   tagString: Player
   grandParentString: Enemy
   WeaponAnimator: {fileID: 3150227168604241676}
   nextType: 2
+  throwForce: {x: 0, y: 0, z: 0}
+  Dmg: 0
 --- !u!135 &6470295464514941766
 SphereCollider:
   m_ObjectHideFlags: 0

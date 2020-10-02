@@ -14,6 +14,8 @@ public class WeaponAnimationHandler : MonoBehaviour
     public int nextType;
     public Vector3 throwForce;
 
+    [HideInInspector]
+    public float Dmg;
     
 
     public void AnimationEnded()
@@ -28,6 +30,10 @@ public class WeaponAnimationHandler : MonoBehaviour
                 transform.parent.GetComponentInParent<PlayerMovement>().ThrowWeapon();
                 return;
             }
+        }
+        else if (grandParentString == "Enemy")
+        {
+            transform.parent.GetComponentInParent<EnemyMovement>().cooldown = 0.5f;
         }
         WeaponAnimator.SetBool("Attacking", false);
         WeaponAnimator.SetInteger("Type", nextType);        
@@ -46,7 +52,7 @@ public class WeaponAnimationHandler : MonoBehaviour
         {
             if (other.gameObject.tag == tagString)
             {
-                other.gameObject.GetComponent<PlayerMovement>().hb_instance.Damage(0.25f);
+                other.gameObject.GetComponent<PlayerMovement>().hb_instance.Damage(Dmg);
             }
         }
     }

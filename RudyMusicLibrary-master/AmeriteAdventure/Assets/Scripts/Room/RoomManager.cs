@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 public class RoomManager : MonoBehaviour
 {
     //variables modified in inspector
-    public GameObject Player, pfRoomGen;
+    public GameObject Player, pfRoomGen, IceBoss;
     public Vector3Int numRoomsInDimension, roomSize;
     public int numRoomsInLevel;
     public Tile[] tiles;
@@ -172,6 +172,7 @@ public class RoomManager : MonoBehaviour
         initRoomPositionsBoss.Add(new Vector3Int(0,1,0));
         Vector3Int[] vectsToExportof0 = { startRoomPos, new Vector3Int(1, 1, 0), roomSize };
         generation_Instances[0].myRGID = IDofBoss;
+        generation_Instances[0].pfBoss = IceBoss;
         generation_Instances[0].startRoomVec = startRoomPos;
         generation_Instances[0].rgShift = startRoomPos;
         generation_Instances[0].RoomGenerationData(allLevelRooms[0], vectsToExportof0, generation_Instances[0].GetComponent<Grid>(), numRoomsInLevel, tiles, initRoomPositionsBoss, IDofBoss);

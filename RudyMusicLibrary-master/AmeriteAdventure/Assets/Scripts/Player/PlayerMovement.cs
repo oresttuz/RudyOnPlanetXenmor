@@ -255,7 +255,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (objectCollider.gameObject.tag == "Enemy")
             {
-                hb_instance.Damage(objectCollider.gameObject.GetComponentInParent<EnemyData>().dmg);
+                hb_instance.Damage(objectCollider.gameObject.GetComponentInParent<EnemyData>().damage);
                 if (hb_instance.currHealth < 0f)
                 {
                     Destroy(this.gameObject);
